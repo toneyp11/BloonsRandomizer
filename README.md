@@ -5,10 +5,7 @@ To use, run the exe file in the output directory.
 
 Planned Functionalilty
 ---
--Config for number of towers
-
--Individual player config
-
--Camo detection guarantee
-
--Price config
+- Config for number of towers
+- Individual player config
+- Camo detection guarantee
+- Price config
