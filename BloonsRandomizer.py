@@ -12,24 +12,33 @@ import random
 import PySimpleGUI as sg
 
 # global variables
-players = 0
+players = 1
+gamemode = "Default"
+
+# constants
+gamemodeList = ["Default", "Primary Only", "Military Only", "Magic Only", "Support Only"]
+defaultMessage = "Player Not Active"
 
 
 def gen_UI():
     """Creates the UI upon launch"""
     global players
+    global gamemode
 
     # define the layout of the tabs
-    settings = [[sg.Text('Number of Players'), sg.Combo(["1", "2", "3", "4"], key='ui_players', enable_events=True)]]
+    settings = [[sg.Text('Number of Players'),
+                 sg.Combo(["1", "2", "3", "4"], key='ui_players', enable_events=True, default_value="1")],
+                [sg.Text('Gamemode'),
+                 sg.Combo(gamemodeList, key='ui_gamemode', enable_events=True, default_value="Default")]]
     results = [[sg.Button("Generate"),
-                sg.Listbox(values=["No active player 1"], key="ui_list1", size=(30, 30)),
-                sg.Listbox(values=["No active player 2"], key="ui_list2", size=(30, 30)),
-                sg.Listbox(values=["No active player 3"], key="ui_list3", size=(30, 30)),
-                sg.Listbox(values=["No active player 4"], key="ui_list4", size=(30, 30))]]
+                sg.Listbox(values=[defaultMessage], key="ui_list1", size=(30, 30)),
+                sg.Listbox(values=[defaultMessage], key="ui_list2", size=(30, 30)),
+                sg.Listbox(values=[defaultMessage], key="ui_list3", size=(30, 30)),
+                sg.Listbox(values=[defaultMessage], key="ui_list4", size=(30, 30))]]
 
     # combine the tabs
     tabgrp = [[sg.TabGroup([[sg.Tab('Settings', settings),
-                           sg.Tab('Monkey Results', results)]])]]
+                             sg.Tab('Monkey Results', results)]])]]
 
     # create the window
     window = sg.Window("Bloons Randomizer", tabgrp)
@@ -38,16 +47,33 @@ def gen_UI():
     while True:
         event, values = window.read()
 
+        # players config
         if event == 'ui_players':
             players = values['ui_players']
 
+        # generates new tower lists
         if event == 'Generate':
-            for i in range(0, int(players)):
-                window["ui_list" + str(i+1)].update(generateMonkeyList())
+            playerListHandler(window)
+
+        # gamemode config
+        if event == 'ui_gamemode':
+            gamemode = values['ui_gamemode']
 
         if event == sg.WIN_CLOSED:
             break
     window.close()
+
+
+def playerListHandler(window):
+    """Maintains the lists for each player"""
+    for i in range(0, int(players)):
+        window["ui_list" + str(i + 1)].update(generateMonkeyList())
+
+    # clears out the empty players' listboxes
+    count = int(players)
+    while count < 4:
+        window["ui_list" + str(count + 1)].update([defaultMessage])
+        count += 1
 
 
 def hero():
@@ -169,18 +195,55 @@ def crossPath(mainTowerPath):
 def generateMonkeyList():
     """Creates the full list of usable monkeys for a player"""
     main = mainPath()
-    monkeyList = [hero(),
-                  primary(),
-                  military(),
-                  magic(),
-                  support(),
-                  "Main Path: " + str(main),
-                  "Cross Path: " + str(crossPath(main))]
-    return monkeyList
+    cross = crossPath(main)
+
+    # default generation
+    if gamemode == "Default":
+        monkeyList = [hero(),
+                      primary(),
+                      military(),
+                      magic(),
+                      support(),
+                      "Main Path: " + str(main),
+                      "Cross Path: " + str(cross)]
+        return monkeyList
+
+    # primary monkeys generation
+    if gamemode == "Primary Only":
+        monkeyList = [hero(),
+                      primary(),
+                      "Main Path: " + str(main),
+                      "Cross Path: " + str(cross)]
+        return monkeyList
+
+        # military monkeys generation
+    if gamemode == "Military Only":
+        monkeyList = [hero(),
+                      military(),
+                      "Main Path: " + str(main),
+                      "Cross Path: " + str(cross)]
+        return monkeyList
+
+    # magic monkeys generation
+    if gamemode == "Magic Only":
+        monkeyList = [hero(),
+                      magic(),
+                      "Main Path: " + str(main),
+                      "Cross Path: " + str(cross)]
+        return monkeyList
+
+    # support monkeys generation
+    if gamemode == "Support Only":
+        monkeyList = [hero(),
+                      support(),
+                      "Main Path: " + str(main),
+                      "Cross Path: " + str(cross)]
+        return monkeyList
 
 
 class Tower:
     """Contains all relevant data for a tower in-game"""
+
     def __init__(self, name):
         self.name = name
 
