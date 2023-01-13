@@ -55,33 +55,33 @@ def hero():
     randInt = random.randint(0, 13)
 
     if randInt == 0:
-        return "Quincy"
+        return Tower("Quincy")
     elif randInt == 1:
-        return "Gwendolin"
+        return Tower("Gwendolin")
     elif randInt == 2:
-        return "Striker Jones"
+        return Tower("Striker Jones")
     elif randInt == 3:
-        return "Obyn Greenfoot"
+        return Tower("Obyn Greenfoot")
     elif randInt == 4:
-        return "Geraldo"
+        return Tower("Geraldo")
     elif randInt == 5:
-        return "Captain Churchill"
+        return Tower("Captain Churchill")
     elif randInt == 6:
-        return "Benjamin"
+        return Tower("Benjamin")
     elif randInt == 7:
-        return "Ezili"
+        return Tower("Ezili")
     elif randInt == 8:
-        return "Pat Fusty"
+        return Tower("Pat Fusty")
     elif randInt == 9:
-        return "Adora"
+        return Tower("Adora")
     elif randInt == 10:
-        return "Admiral Brickell"
+        return Tower("Admiral Brickell")
     elif randInt == 11:
-        return "Etienne"
+        return Tower("Etienne")
     elif randInt == 12:
-        return "Sauda"
+        return Tower("Sauda")
     elif randInt == 13:
-        return "Psi"
+        return Tower("Psi")
 
 
 def primary():
@@ -89,17 +89,17 @@ def primary():
     randInt = random.randint(0, 5)
 
     if randInt == 0:
-        return "Dart Monkey"
+        return Tower("Dart Monkey")
     elif randInt == 1:
-        return "Boomerang Monkey"
+        return Tower("Boomerang Monkey")
     elif randInt == 2:
-        return "Bomb Shooter"
+        return Tower("Bomb Shooter")
     elif randInt == 3:
-        return "Tack Shooter"
+        return Tower("Tack Shooter")
     elif randInt == 4:
-        return "Ice Monkey"
+        return Tower("Ice Monkey")
     elif randInt == 5:
-        return "Glue Gunner"
+        return Tower("Glue Gunner")
 
 
 def military():
@@ -107,19 +107,19 @@ def military():
     randInt = random.randint(0, 6)
 
     if randInt == 0:
-        return "Sniper Monkey"
+        return Tower("Sniper Monkey")
     elif randInt == 1:
-        return "Monkey Sub"
+        return Tower("Monkey Sub")
     elif randInt == 2:
-        return "Monkey Buccaneer"
+        return Tower("Monkey Buccaneer")
     elif randInt == 3:
-        return "Monkey Ace"
+        return Tower("Monkey Ace")
     elif randInt == 4:
-        return "Heli Pilot"
+        return Tower("Heli Pilot")
     elif randInt == 5:
-        return "Mortar Monkey"
+        return Tower("Mortar Monkey")
     elif randInt == 6:
-        return "Dartling Gunner"
+        return Tower("Dartling Gunner")
 
 
 def magic():
@@ -127,15 +127,15 @@ def magic():
     randInt = random.randint(0, 4)
 
     if randInt == 0:
-        return "Wizard Monkey"
+        return Tower("Wizard Monkey")
     elif randInt == 1:
-        return "Super Monkey"
+        return Tower("Super Monkey")
     elif randInt == 2:
-        return "Ninja Monkey"
+        return Tower("Ninja Monkey")
     elif randInt == 3:
-        return "Alchemist"
+        return Tower("Alchemist")
     elif randInt == 4:
-        return "Druid"
+        return Tower("Druid")
 
 
 def support():
@@ -143,13 +143,13 @@ def support():
     randInt = random.randint(0, 3)
 
     if randInt == 0:
-        return "Banana Farm"
+        return Tower("Banana Farm")
     elif randInt == 1:
-        return "Spike Factory"
+        return Tower("Spike Factory")
     elif randInt == 2:
-        return "Monkey Village"
+        return Tower("Monkey Village")
     elif randInt == 3:
-        return "Engineer Monkey"
+        return Tower("Engineer Monkey")
 
 
 def mainPath():
@@ -177,6 +177,15 @@ def generateMonkeyList():
                   "Main Path: " + str(main),
                   "Cross Path: " + str(crossPath(main))]
     return monkeyList
+
+
+class Tower:
+    """Contains all relevant data for a tower in-game"""
+    def __init__(self, name):
+        self.name = name
+
+    def __str__(self):
+        return str(self.name)
 
 
 if __name__ == "__main__":
