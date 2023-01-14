@@ -13,29 +13,48 @@ import PySimpleGUI as sg
 
 # global variables
 players = 1
-gamemode = "Default"
 waterBan = False
+heroEnabled = True
 mainUpgrades = 5
 crossUpgrades = 2
+numPrimary = 1
+numMilitary = 1
+numMagic = 1
+numSupport = 1
 
 # constants
-gamemodeList = ["Default", "Primary Only", "Military Only", "Magic Only", "Support Only"]
 defaultMessage = "Player Not Active"
+maxMonkeys = 5
 
 
 def gen_UI():
     """Creates the UI upon launch"""
-    global players
-    global gamemode
-    global waterBan
+    global players, waterBan, heroEnabled, numPrimary, numMilitary, numMagic, numSupport
 
     # define the layout of the tabs
     settings = [[sg.Text('Number of Players'),
+                # number of players
                  sg.Combo(["1", "2", "3", "4"], key='ui_players', enable_events=True, default_value="1")],
-                [sg.Text('Gamemode'),
-                 sg.Combo(gamemodeList, key='ui_gamemode', enable_events=True, default_value="Default")],
+                # number of primary towers
+                [sg.Text('Primary Towers', size=10), sg.InputText(key='ui_primary', size=5, default_text="1"),
+                 sg.Submit(key='ui_primarySub')],
+                # number of military towers
+                [sg.Text('Military Towers', size=10), sg.InputText(key='ui_military', size=5, default_text="1"),
+                 sg.Submit(key='ui_militarySub')],
+                # number of magic towers
+                [sg.Text('Magic Towers', size=10), sg.InputText(key='ui_magic', size=5, default_text="1"),
+                 sg.Submit(key='ui_magicSub')],
+                # number of support towers
+                [sg.Text('Support Towers', size=10), sg.InputText(key='ui_support', size=5, default_text="1"),
+                 sg.Submit(key='ui_supportSub')],
+                # water tower config
                 [sg.Text('Ban Water Towers'),
-                 sg.Checkbox('', key='ui_waterban', enable_events=True)]]
+                 sg.Checkbox('', key='ui_waterban', enable_events=True)],
+                # hero config
+                [sg.Text('Enable Hero'),
+                 sg.Checkbox('', key='ui_hero', enable_events=True, default=True)]
+                ]
+
     results = [[sg.Button("Generate"),
                 sg.Listbox(values=[defaultMessage], key="ui_list1", size=(30, 30)),
                 sg.Listbox(values=[defaultMessage], key="ui_list2", size=(30, 30)),
@@ -61,13 +80,45 @@ def gen_UI():
         if event == 'Generate':
             playerListHandler(window)
 
-        # gamemode config
-        if event == 'ui_gamemode':
-            gamemode = values['ui_gamemode']
+        # primary config
+        if event == 'ui_primarySub':
+            tempNum = parseTowerCount(values['ui_primary'])
+            if tempNum == -1:
+                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
+            else:
+                numPrimary = tempNum
+
+        # military config
+        if event == 'ui_militarySub':
+            tempNum = parseTowerCount(values['ui_military'])
+            if tempNum == -1:
+                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
+            else:
+                numMilitary = tempNum
+
+        # magic config
+        if event == 'ui_magicSub':
+            tempNum = parseTowerCount(values['ui_magic'])
+            if tempNum == -1:
+                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
+            else:
+                numMagic = tempNum
+
+        # support config
+        if event == 'ui_supportSub':
+            tempNum = parseTowerCount(values['ui_support'])
+            if tempNum == -1:
+                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
+            else:
+                numSupport = tempNum
 
         # water ban config
         if event == 'ui_waterban':
             waterBan = values['ui_waterban']
+
+        # enable hero config
+        if event == 'ui_hero':
+            heroEnabled = values['ui_hero']
 
         if event == sg.WIN_CLOSED:
             break
@@ -84,6 +135,17 @@ def playerListHandler(window):
     while count < 4:
         window["ui_list" + str(count + 1)].update([defaultMessage])
         count += 1
+
+
+def parseTowerCount(userInput):
+    """Takes the user inputted value from the number of monkeys inputs and ensures it is valid. Return -1 if invalid"""
+    try:
+        towerNum = int(userInput)
+        if towerNum < 0 or towerNum > maxMonkeys:
+            return -1
+        return towerNum
+    except ValueError:
+        return -1
 
 
 def hero():
@@ -210,38 +272,29 @@ def genPaths():
 def generateMonkeyList():
     """Creates the full list of usable monkeys for a player"""
 
-    # default generation
-    if gamemode == "Default":
-        monkeyList = [hero(),
-                      primary(),
-                      military(),
-                      magic(),
-                      support()]
-        return monkeyList
+    monkeyList = []
 
-    # primary monkeys generation
-    if gamemode == "Primary Only":
-        monkeyList = [hero(),
-                      primary()]
-        return monkeyList
+    # generate hero if enabled
+    if heroEnabled:
+        monkeyList.append(hero())
 
-    # military monkeys generation
-    if gamemode == "Military Only":
-        monkeyList = [hero(),
-                      military()]
-        return monkeyList
+    # generate primary tower(s)
+    for i in range(0, numPrimary):
+        monkeyList.append(primary())
 
-    # magic monkeys generation
-    if gamemode == "Magic Only":
-        monkeyList = [hero(),
-                      magic()]
-        return monkeyList
+    # generate military tower(s)
+    for i in range(0, numMilitary):
+        monkeyList.append(military())
 
-    # support monkeys generation
-    if gamemode == "Support Only":
-        monkeyList = [hero(),
-                      support()]
-        return monkeyList
+    # generate magic tower(s)
+    for i in range(0, numMagic):
+        monkeyList.append(magic())
+
+    # generate support tower(s)
+    for i in range(0, numSupport):
+        monkeyList.append(support())
+
+    return monkeyList
 
 
 def checkConditions(towerList):
