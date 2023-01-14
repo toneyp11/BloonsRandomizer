@@ -15,6 +15,8 @@ import PySimpleGUI as sg
 players = 1
 gamemode = "Default"
 waterBan = False
+mainUpgrades = 5
+crossUpgrades = 2
 
 # constants
 gamemodeList = ["Default", "Primary Only", "Military Only", "Magic Only", "Support Only"]
@@ -87,127 +89,122 @@ def playerListHandler(window):
 def hero():
     """Generates a random hero"""
     randInt = random.randint(0, 13)
-    main = 0
-    cross = 0
+    paths = [0, 0, 0]
 
     if randInt == 0:
-        return Tower("Quincy", water=False, main=main, cross=cross)
+        return Tower("Quincy", water=False, paths=paths)
     elif randInt == 1:
-        return Tower("Gwendolin", water=False, main=main, cross=cross)
+        return Tower("Gwendolin", water=False, paths=paths)
     elif randInt == 2:
-        return Tower("Striker Jones", water=False, main=main, cross=cross)
+        return Tower("Striker Jones", water=False, paths=paths)
     elif randInt == 3:
-        return Tower("Obyn Greenfoot", water=False, main=main, cross=cross)
+        return Tower("Obyn Greenfoot", water=False, paths=paths)
     elif randInt == 4:
-        return Tower("Geraldo", water=False, main=main, cross=cross)
+        return Tower("Geraldo", water=False, paths=paths)
     elif randInt == 5:
-        return Tower("Captain Churchill", water=False, main=main, cross=cross)
+        return Tower("Captain Churchill", water=False, paths=paths)
     elif randInt == 6:
-        return Tower("Benjamin", water=False, main=main, cross=cross)
+        return Tower("Benjamin", water=False, paths=paths)
     elif randInt == 7:
-        return Tower("Ezili", water=False, main=main, cross=cross)
+        return Tower("Ezili", water=False, paths=paths)
     elif randInt == 8:
-        return Tower("Pat Fusty", water=False, main=main, cross=cross)
+        return Tower("Pat Fusty", water=False, paths=paths)
     elif randInt == 9:
-        return Tower("Adora", water=False, main=main, cross=cross)
+        return Tower("Adora", water=False, paths=paths)
     elif randInt == 10:
-        return Tower("Admiral Brickell", water=True, main=main, cross=cross)
+        return Tower("Admiral Brickell", water=True, paths=paths)
     elif randInt == 11:
-        return Tower("Etienne", water=False, main=main, cross=cross)
+        return Tower("Etienne", water=False, paths=paths)
     elif randInt == 12:
-        return Tower("Sauda", water=False, main=main, cross=cross)
+        return Tower("Sauda", water=False, paths=paths)
     elif randInt == 13:
-        return Tower("Psi", water=False, main=main, cross=cross)
+        return Tower("Psi", water=False, paths=paths)
 
 
 def primary():
     """Generates a random primary tower"""
     randInt = random.randint(0, 5)
-    main = mainPath()
-    cross = crossPath(main)
+    paths = genPaths()
 
     if randInt == 0:
-        return Tower("Dart Monkey", water=False, main=main, cross=cross)
+        return Tower("Dart Monkey", water=False, paths=paths)
     elif randInt == 1:
-        return Tower("Boomerang Monkey", water=False, main=main, cross=cross)
+        return Tower("Boomerang Monkey", water=False, paths=paths)
     elif randInt == 2:
-        return Tower("Bomb Shooter", water=False, main=main, cross=cross)
+        return Tower("Bomb Shooter", water=False, paths=paths)
     elif randInt == 3:
-        return Tower("Tack Shooter", water=False, main=main, cross=cross)
+        return Tower("Tack Shooter", water=False, paths=paths)
     elif randInt == 4:
-        return Tower("Ice Monkey", water=False, main=main, cross=cross)
+        return Tower("Ice Monkey", water=False, paths=paths)
     elif randInt == 5:
-        return Tower("Glue Gunner", water=False, main=main, cross=cross)
+        return Tower("Glue Gunner", water=False, paths=paths)
 
 
 def military():
     """Generates a random military tower"""
     randInt = random.randint(0, 6)
-    main = mainPath()
-    cross = crossPath(main)
+    paths = genPaths()
 
     if randInt == 0:
-        return Tower("Sniper Monkey", water=False, main=main, cross=cross)
+        return Tower("Sniper Monkey", water=False, paths=paths)
     elif randInt == 1:
-        return Tower("Monkey Sub", water=True, main=main, cross=cross)
+        return Tower("Monkey Sub", water=True, paths=paths)
     elif randInt == 2:
-        return Tower("Monkey Buccaneer", water=True, main=main, cross=cross)
+        return Tower("Monkey Buccaneer", water=True, paths=paths)
     elif randInt == 3:
-        return Tower("Monkey Ace", water=False, main=main, cross=cross)
+        return Tower("Monkey Ace", water=False, paths=paths)
     elif randInt == 4:
-        return Tower("Heli Pilot", water=False, main=main, cross=cross)
+        return Tower("Heli Pilot", water=False, paths=paths)
     elif randInt == 5:
-        return Tower("Mortar Monkey", water=False, main=main, cross=cross)
+        return Tower("Mortar Monkey", water=False, paths=paths)
     elif randInt == 6:
-        return Tower("Dartling Gunner", water=False, main=main, cross=cross)
+        return Tower("Dartling Gunner", water=False, paths=paths)
 
 
 def magic():
     """Generates a random magic tower"""
     randInt = random.randint(0, 4)
-    main = mainPath()
-    cross = crossPath(main)
+    paths = genPaths()
 
     if randInt == 0:
-        return Tower("Wizard Monkey", water=False, main=main, cross=cross)
+        return Tower("Wizard Monkey", water=False, paths=paths)
     elif randInt == 1:
-        return Tower("Super Monkey", water=False, main=main, cross=cross)
+        return Tower("Super Monkey", water=False, paths=paths)
     elif randInt == 2:
-        return Tower("Ninja Monkey", water=False, main=main, cross=cross)
+        return Tower("Ninja Monkey", water=False, paths=paths)
     elif randInt == 3:
-        return Tower("Alchemist", water=False, main=main, cross=cross)
+        return Tower("Alchemist", water=False, paths=paths)
     elif randInt == 4:
-        return Tower("Druid", water=False, main=main, cross=cross)
+        return Tower("Druid", water=False, paths=paths)
 
 
 def support():
     """Generates a random support tower"""
     randInt = random.randint(0, 3)
-    main = mainPath()
-    cross = crossPath(main)
+    paths = genPaths()
 
     if randInt == 0:
-        return Tower("Banana Farm", water=False, main=main, cross=cross)
+        return Tower("Banana Farm", water=False, paths=paths)
     elif randInt == 1:
-        return Tower("Spike Factory", water=False, main=main, cross=cross)
+        return Tower("Spike Factory", water=False, paths=paths)
     elif randInt == 2:
-        return Tower("Monkey Village", water=False, main=main, cross=cross)
+        return Tower("Monkey Village", water=False, paths=paths)
     elif randInt == 3:
-        return Tower("Engineer Monkey", water=False, main=main, cross=cross)
+        return Tower("Engineer Monkey", water=False, paths=paths)
 
 
-def mainPath():
-    """Generates a main path for upgrading a tower"""
-    return random.randint(1, 3)
-
-
-def crossPath(mainTowerPath):
-    """Generates the cross path for upgrading a tower (the line that can only be upgraded twice)
-    Also ensures that the cross path is not equal to the main path since that is not possible in game"""
-    cross = random.randint(1, 3)
-    while cross == mainTowerPath:
-        cross = random.randint(1, 3)
-    return cross
+def genPaths():
+    """Generates the paths for a tower and returns an array of three integers that represent the towers"""
+    paths = [0, 0, 0]
+    main = random.randint(0, 2)
+    cross = random.randint(0, 2)
+    while cross == main:
+        cross = random.randint(0, 2)
+        
+    # assigns these global variables that determine the number of upgrades a tower can get
+    paths[main] = mainUpgrades
+    paths[cross] = crossUpgrades
+    return paths
 
 
 def generateMonkeyList():
@@ -270,14 +267,13 @@ def createList():
 class Tower:
     """Contains all relevant data for a tower in-game"""
 
-    def __init__(self, name, water, main, cross):
+    def __init__(self, name, water, paths):
         self.name = name
         self.water = water
-        self.main = main
-        self.cross = cross
+        self.paths = paths
 
     def __str__(self):
-        return str(self.name + " (" + str(self.main) + "," + str(self.cross) + ")")
+        return str(self.name + " (" + str(self.paths[0]) + ", " + str(self.paths[1]) + ", " + str(self.paths[2]) + ")")
 
 
 if __name__ == "__main__":
