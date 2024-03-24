@@ -150,7 +150,7 @@ def parseTowerCount(userInput):
 
 def hero():
     """Generates a random hero"""
-    randInt = random.randint(0, 13)
+    randInt = random.randint(0, 14)
     paths = [0, 0, 0]
 
     if randInt == 0:
@@ -181,6 +181,8 @@ def hero():
         return Tower("Sauda", water=False, paths=paths)
     elif randInt == 13:
         return Tower("Psi", water=False, paths=paths)
+    elif randInt == 14:
+        return Tower("Corvus", water=False, paths=paths)
 
 
 def primary():
@@ -242,7 +244,7 @@ def magic():
 
 def support():
     """Generates a random support tower"""
-    randInt = random.randint(0, 3)
+    randInt = random.randint(0, 4)
     paths = genPaths()
 
     if randInt == 0:
@@ -253,6 +255,8 @@ def support():
         return Tower("Monkey Village", water=False, paths=paths)
     elif randInt == 3:
         return Tower("Engineer Monkey", water=False, paths=paths)
+    elif randInt == 4:
+        return Tower("Beast Handler", water=False, paths=paths)
 
 
 def genPaths():
