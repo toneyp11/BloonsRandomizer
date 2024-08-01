@@ -5,7 +5,7 @@
 Used to randomize towers in Bloons Tower Defense 6 (BTD6)
 Intended to create challenge modes
 
-Last Updated for Version 34.3.6116
+Last Updated for Version 44
 """
 import random
 
@@ -150,113 +150,69 @@ def parseTowerCount(userInput):
 
 def hero():
     """Generates a random hero"""
-    randInt = random.randint(0, 14)
-    paths = [0, 0, 0]
 
-    if randInt == 0:
-        return Tower("Quincy", water=False, paths=paths)
-    elif randInt == 1:
-        return Tower("Gwendolin", water=False, paths=paths)
-    elif randInt == 2:
-        return Tower("Striker Jones", water=False, paths=paths)
-    elif randInt == 3:
-        return Tower("Obyn Greenfoot", water=False, paths=paths)
-    elif randInt == 4:
-        return Tower("Geraldo", water=False, paths=paths)
-    elif randInt == 5:
-        return Tower("Captain Churchill", water=False, paths=paths)
-    elif randInt == 6:
-        return Tower("Benjamin", water=False, paths=paths)
-    elif randInt == 7:
-        return Tower("Ezili", water=False, paths=paths)
-    elif randInt == 8:
-        return Tower("Pat Fusty", water=False, paths=paths)
-    elif randInt == 9:
-        return Tower("Adora", water=False, paths=paths)
-    elif randInt == 10:
-        return Tower("Admiral Brickell", water=True, paths=paths)
-    elif randInt == 11:
-        return Tower("Etienne", water=False, paths=paths)
-    elif randInt == 12:
-        return Tower("Sauda", water=False, paths=paths)
-    elif randInt == 13:
-        return Tower("Psi", water=False, paths=paths)
-    elif randInt == 14:
-        return Tower("Corvus", water=False, paths=paths)
+    heroes = ["Quincy", "Gwendolin", "Striker Jones", "Obyn Greenfoot", "Geraldo", "Captain Churchill", "Benjamin", "Ezili",
+              "Pat Fusty", "Adora", "Admiral Brickell", "Etienne", "Sauda", "Psi", "Corvus", "Rosalia"]
+    
+    waterHeroes = ["Admiral Brickell"]
+    
+    return genTower(heroes, waterHeroes)
 
 
 def primary():
     """Generates a random primary tower"""
-    randInt = random.randint(0, 5)
-    paths = genPaths()
 
-    if randInt == 0:
-        return Tower("Dart Monkey", water=False, paths=paths)
-    elif randInt == 1:
-        return Tower("Boomerang Monkey", water=False, paths=paths)
-    elif randInt == 2:
-        return Tower("Bomb Shooter", water=False, paths=paths)
-    elif randInt == 3:
-        return Tower("Tack Shooter", water=False, paths=paths)
-    elif randInt == 4:
-        return Tower("Ice Monkey", water=False, paths=paths)
-    elif randInt == 5:
-        return Tower("Glue Gunner", water=False, paths=paths)
+    primaries = ["Dart Monkey", "Boomerang Monkey", "Bomb Shooter", "Tack Shooter", "Ice Monkey", "Glue Gunner"]
+
+    waterPrimaries = []
+
+    return genTower(primaries, waterPrimaries)
 
 
 def military():
     """Generates a random military tower"""
-    randInt = random.randint(0, 6)
-    paths = genPaths()
 
-    if randInt == 0:
-        return Tower("Sniper Monkey", water=False, paths=paths)
-    elif randInt == 1:
-        return Tower("Monkey Sub", water=True, paths=paths)
-    elif randInt == 2:
-        return Tower("Monkey Buccaneer", water=True, paths=paths)
-    elif randInt == 3:
-        return Tower("Monkey Ace", water=False, paths=paths)
-    elif randInt == 4:
-        return Tower("Heli Pilot", water=False, paths=paths)
-    elif randInt == 5:
-        return Tower("Mortar Monkey", water=False, paths=paths)
-    elif randInt == 6:
-        return Tower("Dartling Gunner", water=False, paths=paths)
+    militaries = ["Sniper Monkey", "Monkey Sub", "Monkey Buccaneer", "Monkey Ace", "Heli Pilot", "Mortar Monkey", "Dartling Gunner"]
+
+    waterMilitaries = ["Monkey Sub", "Monkey Buccaneer"]
+    
+    return genTower(militaries, waterMilitaries)
 
 
 def magic():
     """Generates a random magic tower"""
-    randInt = random.randint(0, 4)
-    paths = genPaths()
 
-    if randInt == 0:
-        return Tower("Wizard Monkey", water=False, paths=paths)
-    elif randInt == 1:
-        return Tower("Super Monkey", water=False, paths=paths)
-    elif randInt == 2:
-        return Tower("Ninja Monkey", water=False, paths=paths)
-    elif randInt == 3:
-        return Tower("Alchemist", water=False, paths=paths)
-    elif randInt == 4:
-        return Tower("Druid", water=False, paths=paths)
+    magics = ["Wizard Monkey", "Super Monkey", "Ninja Monkey", "Alchemist", "Druid", "Mermonkey"]
+    
+    waterMagics = ["Mermonkey"]
+
+    return genTower(magics, waterMagics)
 
 
 def support():
     """Generates a random support tower"""
-    randInt = random.randint(0, 4)
-    paths = genPaths()
 
-    if randInt == 0:
-        return Tower("Banana Farm", water=False, paths=paths)
-    elif randInt == 1:
-        return Tower("Spike Factory", water=False, paths=paths)
-    elif randInt == 2:
-        return Tower("Monkey Village", water=False, paths=paths)
-    elif randInt == 3:
-        return Tower("Engineer Monkey", water=False, paths=paths)
-    elif randInt == 4:
-        return Tower("Beast Handler", water=False, paths=paths)
+    supports = ["Banana Farm", "Spike Factory", "Monkey Village", "Engineer Monkey", "Beast Handler"]
+    
+    waterSupports = ["Beast Handler"]
+
+    return genTower(supports, waterSupports)
+    
+
+def genTower(towers, waterTowers):
+    """Generates a random tower based on the input list and the input list of which towers are water-based"""
+
+    randInt = random.randint(0, (len(towers) - 1))
+    paths = [0, 0, 0]
+    water = False
+
+    selectedTower = towers[randInt]
+
+    #water towers
+    if selectedTower in waterTowers:
+        water = True
+
+    return Tower(selectedTower, water, paths)
 
 
 def genPaths():
