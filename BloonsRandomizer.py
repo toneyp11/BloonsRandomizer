@@ -203,7 +203,6 @@ def genTower(towers, waterTowers):
     """Generates a random tower based on the input list and the input list of which towers are water-based"""
 
     randInt = random.randint(0, (len(towers) - 1))
-    paths = [0, 0, 0]
     water = False
 
     selectedTower = towers[randInt]
@@ -212,7 +211,7 @@ def genTower(towers, waterTowers):
     if selectedTower in waterTowers:
         water = True
 
-    return Tower(selectedTower, water, paths)
+    return Tower(selectedTower, water, genPaths())
 
 
 def genPaths():
