@@ -1,0 +1,7 @@
+# Runtime dependencies: NONE.
+# The app uses only the Python 3 standard library (tkinter for the UI).
+# Keeping it dependency-free is intentional — it means the app runs from the
+# .py with no install step and no license keys. Please don't add a runtime
+# dependency without good reason.
+#
+# For development/test tooling, see requirements-dev.txt.
