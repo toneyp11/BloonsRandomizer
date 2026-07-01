@@ -97,3 +97,22 @@ def test_check_conditions_allows_water_when_not_banned():
 
 def test_tower_str_format():
     assert str(b.Tower("Dart Monkey", False, [5, 2, 0])) == "Dart Monkey (5, 2, 0)"
+
+
+# --- data-driven rosters ---------------------------------------------------
+
+def test_tower_pools_loaded_from_data():
+    assert set(b.towerPools) == {"Primary", "Military", "Magic", "Support"}
+    all_names = {t["name"] for pool in b.towerPools.values() for t in pool}
+    assert len(all_names) == 25
+    # Desperado (a newer Primary) is present now that rosters come from data
+    assert "Desperado" in {t["name"] for t in b.towerPools["Primary"]}
+
+
+def test_generated_towers_come_from_data():
+    b.heroEnabled = False
+    b.numPrimary = b.numMilitary = b.numMagic = b.numSupport = 1
+    valid = {t["name"] for pool in b.towerPools.values() for t in pool}
+    for _ in range(200):
+        for tower in b.createList():
+            assert tower.name in valid

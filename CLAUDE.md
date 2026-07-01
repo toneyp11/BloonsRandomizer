@@ -74,13 +74,13 @@ two-path upgrade rule.
 
 ## Updating for a new BTD6 version
 
-Game content currently lives in two places:
-- The roster lists inside `hero()`, `primary()`, `military()`, `magic()`,
-  `support()` in `BloonsRandomizer.py` (each with a `water*` list). NOTE: this
-  roster is stale — it targets ~v44 and is missing at least **Desperado** (a
-  Primary). Prefer migrating the app to read `data/towers.json` (below) rather
-  than maintaining these lists by hand.
-- `data/towers.json` — the full, current dataset (see next section).
+- **Towers** (Primary/Military/Magic/Support) and their water flags come from
+  `data/towers.json`, loaded at startup by `loadTowerPools()` in
+  `BloonsRandomizer.py`. To refresh for a new game version, rerun
+  `python tools/fetch_towers.py` — do not hand-edit the roster in the app.
+- **Heroes** are the exception: they are not towers and are still hardcoded in
+  `hero()` (with its own `water*` list). Update that list by hand when NK adds
+  a hero.
 
 ## Tower dataset (`data/towers.json`)
 
