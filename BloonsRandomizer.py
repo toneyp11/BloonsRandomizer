@@ -109,14 +109,20 @@ class RandomizerApp:
         ttk.Button(frame, text="Generate", command=self.on_generate).grid(
             row=0, column=0, columnspan=4, sticky="w", pady=(0, 5))
 
-        # one listbox per possible player
+        # let the listbox row/columns grow when the window is resized
+        frame.rowconfigure(1, weight=1)
+
+        # one listbox per possible player. A monospace font keeps the width in
+        # characters exact; 35 fits the longest possible entry, e.g.
+        # "Monkey Buccaneer (2, 0, 5) [Camo]" (33 chars).
         self.listboxes = []
         for i in range(4):
+            frame.columnconfigure(i, weight=1)
             column = ttk.Frame(frame)
-            column.grid(row=1, column=i, padx=5, sticky="n")
+            column.grid(row=1, column=i, padx=5, sticky="nsew")
             ttk.Label(column, text="Player " + str(i + 1)).pack(anchor="w")
-            listbox = tk.Listbox(column, width=30, height=25)
-            listbox.pack()
+            listbox = tk.Listbox(column, width=35, height=25, font="TkFixedFont")
+            listbox.pack(fill="both", expand=True)
             listbox.insert(tk.END, defaultMessage)
             self.listboxes.append(listbox)
 
