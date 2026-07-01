@@ -74,20 +74,24 @@ two-path upgrade rule.
 
 ## Updating for a new BTD6 version
 
-- **Towers** (Primary/Military/Magic/Support) and their water flags come from
-  `data/towers.json`, loaded at startup by `loadTowerPools()` in
-  `BloonsRandomizer.py`. To refresh for a new game version, rerun
-  `python tools/fetch_towers.py` — do not hand-edit the roster in the app.
-- **Heroes** are the exception: they are not towers and are still hardcoded in
-  `hero()` (with its own `water*` list). Update that list by hand when NK adds
-  a hero.
+Towers **and heroes** (with their water flags) come from `data/towers.json`,
+loaded at startup by `loadTowerPools()` in `BloonsRandomizer.py`, which groups
+entries by `category` (Primary/Military/Magic/Support/Hero). To refresh for a
+new game version, rerun `python tools/fetch_towers.py` — do not hand-edit
+rosters in the app. New towers/heroes and cost changes are picked up
+automatically; only the by-name camo/water maps in the tool may need a nudge.
 
 ## Tower dataset (`data/towers.json`)
 
-Single source of truth for every tower, upgrade, and cost. Structure:
-`towers[]` each with `name`, `category` (Primary/Military/Magic/Support),
-`water` (bool), `innateCamo` (bool), `baseCost`, `paragon` (`{name, cost}` or
-null), and `paths[]` (3 paths x 5 `tiers[]`, each `{tier, name, cost, camo}`).
+Single source of truth for every tower, upgrade, cost, and hero. The `towers[]`
+array holds both towers and heroes, distinguished by `isHero` (bool) /
+`category`. Common fields: `name`, `category`
+(Primary/Military/Magic/Support/Hero), `isHero`, `water` (bool), `innateCamo`
+(bool), `baseCost`.
+- **Towers** additionally have `paragon` (`{name, cost}` or null) and `paths[]`
+  (3 paths x 5 `tiers[]`, each `{tier, name, cost, camo}`).
+- **Heroes** have empty `paths`, null `paragon`, and a `camoLevel` (the level
+  at which permanent camo detection is gained, or null).
 
 - **Costs** are Medium difficulty, excluding Monkey Knowledge/discounts.
 - **`camo`** is True when the tower has permanent camo detection once that

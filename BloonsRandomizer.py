@@ -5,9 +5,9 @@
 Used to randomize towers in Bloons Tower Defense 6 (BTD6)
 Intended to create challenge modes
 
-Tower rosters (Primary/Military/Magic/Support) and their water flags are loaded
-from data/towers.json, which is regenerated from the wiki by
-tools/fetch_towers.py. The hero list is maintained here (heroes are not towers).
+Tower and hero rosters (with their water flags) are loaded from data/towers.json,
+which is regenerated from the wiki by tools/fetch_towers.py. Heroes are the
+entries with category "Hero".
 """
 import json
 import os
@@ -184,13 +184,7 @@ def parseTowerCount(userInput):
 
 def hero():
     """Generates a random hero"""
-
-    heroes = ["Quincy", "Gwendolin", "Striker Jones", "Obyn Greenfoot", "Geraldo", "Captain Churchill", "Benjamin", "Ezili",
-              "Pat Fusty", "Adora", "Admiral Brickell", "Etienne", "Sauda", "Psi", "Corvus", "Rosalia"]
-
-    waterHeroes = ["Admiral Brickell"]
-
-    return genTower(heroes, waterHeroes)
+    return genTowerFromCategory("Hero")
 
 
 def primary():
@@ -214,27 +208,9 @@ def support():
 
 
 def genTowerFromCategory(category):
-    """Selects a random tower from the given category in the loaded tower data"""
+    """Selects a random tower (or hero) from the given category in the loaded data"""
     selected = random.choice(towerPools[category])
     return Tower(selected["name"], selected["water"], genPaths())
-
-
-def genTower(towers, waterTowers):
-    """Generates a random tower/hero from the given name list and its water-based subset.
-
-    Used for the hardcoded hero list; towers are drawn from data via genTowerFromCategory.
-    """
-
-    randInt = random.randint(0, (len(towers) - 1))
-    water = False
-
-    selectedTower = towers[randInt]
-
-    #water towers
-    if selectedTower in waterTowers:
-        water = True
-
-    return Tower(selectedTower, water, genPaths())
 
 
 def genPaths():

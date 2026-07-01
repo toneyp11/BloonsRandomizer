@@ -60,6 +60,27 @@ CAMO_GRANT = {
 # Towers that detect camo with no upgrade at all.
 INNATE_CAMO = {"Ninja Monkey"}
 
+# Heroes are pulled from the btd6_heroes table and added to the dataset with
+# category "Hero" / isHero=True. They have levels rather than upgrade paths, so
+# their "paths" list is empty and camo is expressed as a level, not per-upgrade.
+# Heroes that can be placed on water (kept consistent with the water-placeable
+# tower flag; Brickell requires water, Silas can use land or water).
+WATER_HEROES = {"Admiral Brickell", "Silas"}
+# Level at which a hero gains PERMANENT camo detection (1 = innate at level 1).
+# From the wiki "Camo detection" page (v53.2). Item/ability-conditional sources
+# (Geraldo's Genie Bottle, Corvus's Vision) are excluded, matching how tower
+# conditionals are handled; heroes with no camo are simply absent here.
+HERO_CAMO_LEVEL = {
+    "Quincy": 5,
+    "Captain Churchill": 6,
+    "Etienne": 5,
+    "Admiral Brickell": 7,
+    "Ezili": 1,
+    "Sauda": 1,
+    "Psi": 1,
+    "Silas": 1,
+}
+
 
 def apply_camo(name, paths):
     """Set the camo flag on every upgrade tier and return the tower innateCamo flag.
@@ -142,11 +163,27 @@ def build():
                 paths.append({"path": p, "tiers": tiers})
             innate = apply_camo(name, paths)
             towers.append({
-                "name": name, "category": category, "water": name in WATER,
-                "innateCamo": innate,
+                "name": name, "category": category, "isHero": False,
+                "water": name in WATER, "innateCamo": innate,
                 "baseCost": base_cost.get(name), "paragon": paragon.get(name),
                 "paths": paths,
             })
+
+    # Heroes: levels instead of upgrade paths, so no paths/paragon.
+    hero_rows = cargo("btd6_heroes", "name,cost", "name")
+    for r in hero_rows:
+        name = r.get("name")
+        if r.get("cost") in (None, ""):
+            problems.append(f"{name}: missing hero cost")
+        camo_level = HERO_CAMO_LEVEL.get(name)
+        towers.append({
+            "name": name, "category": "Hero", "isHero": True,
+            "water": name in WATER_HEROES, "innateCamo": camo_level == 1,
+            "camoLevel": camo_level,
+            "baseCost": int(r["cost"]) if r.get("cost") not in (None, "") else None,
+            "paragon": None,
+            "paths": [],
+        })
 
     if problems:
         raise RuntimeError("Data problems:\n  " + "\n  ".join(problems))
@@ -154,12 +191,13 @@ def build():
     return {
         "meta": {
             "game": "Bloons TD 6",
-            "description": "Every tower with all upgrade paths, names, and costs.",
+            "description": "Every tower with all upgrade paths, names, and costs, plus heroes.",
             "costBasis": "Medium difficulty; excludes Monkey Knowledge and all discounts.",
-            "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons.",
+            "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons / btd6_heroes.",
+            "heroNote": "Entries with isHero=True are heroes (category 'Hero'). Heroes level up rather than take upgrade paths, so 'paths' is empty and 'paragon' is null. 'camoLevel' is the level at which the hero gains permanent camo detection (null if none/conditional); 'innateCamo' is True when that level is 1.",
             "camoNote": "Per-upgrade 'camo' is True when the tower has permanent camo detection once that upgrade is owned (granting upgrade and higher tiers on its path). 'innateCamo' marks towers that detect camo with no upgrade (Ninja Monkey). Source: wiki 'Camo detection' page, BTD6 section (v53.2). Excludes conditional/ability-only, paragon-only, and decamo-only sources.",
         },
-        "categories": list(CATEGORY),
+        "categories": list(CATEGORY) + ["Hero"],
         "towers": towers,
     }
 
@@ -171,8 +209,10 @@ def main():
         json.dump(data, f, indent=2, ensure_ascii=False)
         f.write("\n")
     upgrades = sum(len(p["tiers"]) for t in data["towers"] for p in t["paths"])
-    print(f"Wrote {os.path.relpath(OUT)}: {len(data['towers'])} towers, "
-          f"{upgrades} upgrades, {sum(1 for t in data['towers'] if t['paragon'])} paragons.")
+    heroes = sum(1 for t in data["towers"] if t["isHero"])
+    print(f"Wrote {os.path.relpath(OUT)}: {len(data['towers']) - heroes} towers, "
+          f"{heroes} heroes, {upgrades} upgrades, "
+          f"{sum(1 for t in data['towers'] if t['paragon'])} paragons.")
 
 
 if __name__ == "__main__":

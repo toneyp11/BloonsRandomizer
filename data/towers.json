@@ -1,21 +1,24 @@
 {
   "meta": {
     "game": "Bloons TD 6",
-    "description": "Every tower with all upgrade paths, names, and costs.",
+    "description": "Every tower with all upgrade paths, names, and costs, plus heroes.",
     "costBasis": "Medium difficulty; excludes Monkey Knowledge and all discounts.",
-    "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons.",
+    "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons / btd6_heroes.",
+    "heroNote": "Entries with isHero=True are heroes (category 'Hero'). Heroes level up rather than take upgrade paths, so 'paths' is empty and 'paragon' is null. 'camoLevel' is the level at which the hero gains permanent camo detection (null if none/conditional); 'innateCamo' is True when that level is 1.",
     "camoNote": "Per-upgrade 'camo' is True when the tower has permanent camo detection once that upgrade is owned (granting upgrade and higher tiers on its path). 'innateCamo' marks towers that detect camo with no upgrade (Ninja Monkey). Source: wiki 'Camo detection' page, BTD6 section (v53.2). Excludes conditional/ability-only, paragon-only, and decamo-only sources."
   },
   "categories": [
     "Primary",
     "Military",
     "Magic",
-    "Support"
+    "Support",
+    "Hero"
   ],
   "towers": [
     {
       "name": "Dart Monkey",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 200,
@@ -134,6 +137,7 @@
     {
       "name": "Boomerang Monkey",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 315,
@@ -252,6 +256,7 @@
     {
       "name": "Bomb Shooter",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 375,
@@ -370,6 +375,7 @@
     {
       "name": "Tack Shooter",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 260,
@@ -488,6 +494,7 @@
     {
       "name": "Ice Monkey",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 400,
@@ -606,6 +613,7 @@
     {
       "name": "Glue Gunner",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 225,
@@ -721,6 +729,7 @@
     {
       "name": "Desperado",
       "category": "Primary",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 300,
@@ -836,6 +845,7 @@
     {
       "name": "Sniper Monkey",
       "category": "Military",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 350,
@@ -951,6 +961,7 @@
     {
       "name": "Monkey Sub",
       "category": "Military",
+      "isHero": false,
       "water": true,
       "innateCamo": false,
       "baseCost": 325,
@@ -1069,6 +1080,7 @@
     {
       "name": "Monkey Buccaneer",
       "category": "Military",
+      "isHero": false,
       "water": true,
       "innateCamo": false,
       "baseCost": 400,
@@ -1187,6 +1199,7 @@
     {
       "name": "Monkey Ace",
       "category": "Military",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 800,
@@ -1305,6 +1318,7 @@
     {
       "name": "Heli Pilot",
       "category": "Military",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 1500,
@@ -1420,6 +1434,7 @@
     {
       "name": "Mortar Monkey",
       "category": "Military",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 600,
@@ -1535,6 +1550,7 @@
     {
       "name": "Dartling Gunner",
       "category": "Military",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 850,
@@ -1650,6 +1666,7 @@
     {
       "name": "Wizard Monkey",
       "category": "Magic",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 250,
@@ -1768,6 +1785,7 @@
     {
       "name": "Super Monkey",
       "category": "Magic",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 2500,
@@ -1883,6 +1901,7 @@
     {
       "name": "Ninja Monkey",
       "category": "Magic",
+      "isHero": false,
       "water": false,
       "innateCamo": true,
       "baseCost": 400,
@@ -2001,6 +2020,7 @@
     {
       "name": "Alchemist",
       "category": "Magic",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 550,
@@ -2116,6 +2136,7 @@
     {
       "name": "Druid",
       "category": "Magic",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 400,
@@ -2234,6 +2255,7 @@
     {
       "name": "Mermonkey",
       "category": "Magic",
+      "isHero": false,
       "water": true,
       "innateCamo": false,
       "baseCost": 300,
@@ -2349,6 +2371,7 @@
     {
       "name": "Banana Farm",
       "category": "Support",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 1250,
@@ -2464,6 +2487,7 @@
     {
       "name": "Spike Factory",
       "category": "Support",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 1000,
@@ -2582,6 +2606,7 @@
     {
       "name": "Monkey Village",
       "category": "Support",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 1200,
@@ -2697,6 +2722,7 @@
     {
       "name": "Engineer Monkey",
       "category": "Support",
+      "isHero": false,
       "water": false,
       "innateCamo": false,
       "baseCost": 350,
@@ -2815,6 +2841,7 @@
     {
       "name": "Beast Handler",
       "category": "Support",
+      "isHero": false,
       "water": true,
       "innateCamo": false,
       "baseCost": 250,
@@ -2926,6 +2953,204 @@
           ]
         }
       ]
+    },
+    {
+      "name": "Admiral Brickell",
+      "category": "Hero",
+      "isHero": true,
+      "water": true,
+      "innateCamo": false,
+      "camoLevel": 7,
+      "baseCost": 900,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Adora",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 1000,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Benjamin",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 1200,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Captain Churchill",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": 6,
+      "baseCost": 2000,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Corvus",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 1325,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Dan D'Monke",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 650,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Etienne",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": 5,
+      "baseCost": 650,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Ezili",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": true,
+      "camoLevel": 1,
+      "baseCost": 550,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Geraldo",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 750,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Gwendolin",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 725,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Obyn Greenfoot",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 650,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Pat Fusty",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 800,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Psi",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": true,
+      "camoLevel": 1,
+      "baseCost": 1000,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Quincy",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": 5,
+      "baseCost": 540,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Rosalia",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 875,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Sauda",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": true,
+      "camoLevel": 1,
+      "baseCost": 600,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Silas",
+      "category": "Hero",
+      "isHero": true,
+      "water": true,
+      "innateCamo": true,
+      "camoLevel": 1,
+      "baseCost": 850,
+      "paragon": null,
+      "paths": []
+    },
+    {
+      "name": "Striker Jones",
+      "category": "Hero",
+      "isHero": true,
+      "water": false,
+      "innateCamo": false,
+      "camoLevel": null,
+      "baseCost": 700,
+      "paragon": null,
+      "paths": []
     }
   ]
 }

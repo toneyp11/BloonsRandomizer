@@ -43,16 +43,20 @@ def test_gen_paths_has_one_main_one_cross_one_zero():
         assert sorted(paths) == [0, b.crossUpgrades, b.mainUpgrades]
 
 
-# --- genTower --------------------------------------------------------------
+# --- genTowerFromCategory --------------------------------------------------
 
-def test_gen_tower_flags_water_towers():
-    tower = b.genTower(["Monkey Sub"], ["Monkey Sub"])
-    assert tower.water is True
+def test_gen_tower_from_category_sets_water_from_data():
+    # Military contains water towers (Sub/Buccaneer) and land towers; over many
+    # rolls the water flag must always match what the data says for that tower.
+    water_by_name = {t["name"]: t["water"] for t in b.towerPools["Military"]}
+    for _ in range(200):
+        tower = b.genTowerFromCategory("Military")
+        assert tower.water == water_by_name[tower.name]
 
 
-def test_gen_tower_non_water():
-    tower = b.genTower(["Dart Monkey"], [])
-    assert tower.water is False
+def test_gen_tower_from_category_uses_valid_paths():
+    tower = b.genTowerFromCategory("Primary")
+    assert sorted(tower.paths) == [0, b.crossUpgrades, b.mainUpgrades]
 
 
 # --- generateMonkeyList ----------------------------------------------------
@@ -102,11 +106,25 @@ def test_tower_str_format():
 # --- data-driven rosters ---------------------------------------------------
 
 def test_tower_pools_loaded_from_data():
-    assert set(b.towerPools) == {"Primary", "Military", "Magic", "Support"}
-    all_names = {t["name"] for pool in b.towerPools.values() for t in pool}
-    assert len(all_names) == 25
+    assert set(b.towerPools) == {"Primary", "Military", "Magic", "Support", "Hero"}
+    tower_names = {t["name"] for cat in ("Primary", "Military", "Magic", "Support")
+                   for t in b.towerPools[cat]}
+    assert len(tower_names) == 25
     # Desperado (a newer Primary) is present now that rosters come from data
     assert "Desperado" in {t["name"] for t in b.towerPools["Primary"]}
+
+
+def test_heroes_loaded_from_data():
+    hero_names = {h["name"] for h in b.towerPools["Hero"]}
+    assert len(hero_names) == 18
+    # Newer heroes are present now that the roster comes from data
+    assert {"Dan D'Monke", "Silas"} <= hero_names
+
+
+def test_hero_generation_draws_from_data():
+    valid = {h["name"] for h in b.towerPools["Hero"]}
+    for _ in range(200):
+        assert b.hero().name in valid
 
 
 def test_generated_towers_come_from_data():
