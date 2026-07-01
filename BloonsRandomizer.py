@@ -210,6 +210,9 @@ def support():
 def genTowerFromCategory(category):
     """Selects a random tower (or hero) from the given category in the loaded data"""
     selected = random.choice(towerPools[category])
+    if selected["isHero"]:
+        # heroes level up instead of taking upgrade paths, so no path spread
+        return Tower(selected["name"], selected["water"], None, isHero=True)
     return Tower(selected["name"], selected["water"], genPaths())
 
 
@@ -276,14 +279,21 @@ def createList():
 
 
 class Tower:
-    """Contains all relevant data for a tower in-game"""
+    """Contains all relevant data for a tower in-game.
 
-    def __init__(self, name, water, paths):
+    Heroes have no upgrade paths, so paths is None for them and only the name
+    is shown; towers display their upgrade spread as "(top, middle, bottom)".
+    """
+
+    def __init__(self, name, water, paths, isHero=False):
         self.name = name
         self.water = water
         self.paths = paths
+        self.isHero = isHero
 
     def __str__(self):
+        if self.isHero:
+            return self.name
         return str(self.name + " (" + str(self.paths[0]) + ", " + str(self.paths[1]) + ", " + str(self.paths[2]) + ")")
 
 

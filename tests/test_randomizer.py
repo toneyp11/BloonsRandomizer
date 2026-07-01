@@ -103,6 +103,16 @@ def test_tower_str_format():
     assert str(b.Tower("Dart Monkey", False, [5, 2, 0])) == "Dart Monkey (5, 2, 0)"
 
 
+def test_hero_str_has_no_path():
+    assert str(b.Tower("Quincy", False, None, isHero=True)) == "Quincy"
+
+
+def test_generated_heroes_display_without_path():
+    for _ in range(200):
+        text = str(b.hero())
+        assert "(" not in text, text
+
+
 # --- data-driven rosters ---------------------------------------------------
 
 def test_tower_pools_loaded_from_data():
