@@ -1,7 +1,14 @@
 # BloonsRandomizer
 Tower Randomizer for BTD6
 
-To use, run the exe file in the output directory.
+## Usage
+
+Requires Python 3 (the UI uses `tkinter`, which ships with the standard
+library — no third-party packages or license keys needed). Run:
+
+```
+python BloonsRandomizer.py
+```
 
 Planned Functionality
 ---

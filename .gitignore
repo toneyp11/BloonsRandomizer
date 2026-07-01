@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Build artifacts
+build/
+dist/
+output/
+*.exe
+*.spec

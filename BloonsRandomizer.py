@@ -8,8 +8,8 @@ Intended to create challenge modes
 Last Updated for Version 44
 """
 import random
-
-import PySimpleGUI as sg
+import tkinter as tk
+from tkinter import ttk, messagebox
 
 # global variables
 players = 1
@@ -27,114 +27,128 @@ defaultMessage = "Player Not Active"
 maxMonkeys = 5
 
 
-def gen_UI():
-    """Creates the UI upon launch"""
-    global players, waterBan, heroEnabled, numPrimary, numMilitary, numMagic, numSupport
+class RandomizerApp:
+    """The tkinter UI for the randomizer."""
 
-    # define the layout of the tabs
-    settings = [[sg.Text('Number of Players'),
-                # number of players
-                 sg.Combo(["1", "2", "3", "4"], key='ui_players', enable_events=True, default_value="1")],
-                # number of primary towers
-                [sg.Text('Primary Towers', size=10), sg.InputText(key='ui_primary', size=5, default_text="1"),
-                 sg.Submit(key='ui_primarySub')],
-                # number of military towers
-                [sg.Text('Military Towers', size=10), sg.InputText(key='ui_military', size=5, default_text="1"),
-                 sg.Submit(key='ui_militarySub')],
-                # number of magic towers
-                [sg.Text('Magic Towers', size=10), sg.InputText(key='ui_magic', size=5, default_text="1"),
-                 sg.Submit(key='ui_magicSub')],
-                # number of support towers
-                [sg.Text('Support Towers', size=10), sg.InputText(key='ui_support', size=5, default_text="1"),
-                 sg.Submit(key='ui_supportSub')],
-                # water tower config
-                [sg.Text('Ban Water Towers'),
-                 sg.Checkbox('', key='ui_waterban', enable_events=True)],
-                # hero config
-                [sg.Text('Enable Hero'),
-                 sg.Checkbox('', key='ui_hero', enable_events=True, default=True)]
-                ]
+    def __init__(self, root):
+        self.root = root
+        root.title("Bloons Randomizer")
 
-    results = [[sg.Button("Generate"),
-                sg.Listbox(values=[defaultMessage], key="ui_list1", size=(30, 30)),
-                sg.Listbox(values=[defaultMessage], key="ui_list2", size=(30, 30)),
-                sg.Listbox(values=[defaultMessage], key="ui_list3", size=(30, 30)),
-                sg.Listbox(values=[defaultMessage], key="ui_list4", size=(30, 30))]]
+        # tk-backed widget state
+        self.playersVar = tk.StringVar(value=str(players))
+        self.primaryVar = tk.StringVar(value=str(numPrimary))
+        self.militaryVar = tk.StringVar(value=str(numMilitary))
+        self.magicVar = tk.StringVar(value=str(numMagic))
+        self.supportVar = tk.StringVar(value=str(numSupport))
+        self.waterBanVar = tk.BooleanVar(value=waterBan)
+        self.heroVar = tk.BooleanVar(value=heroEnabled)
 
-    # combine the tabs
-    tabgrp = [[sg.TabGroup([[sg.Tab('Settings', settings),
-                             sg.Tab('Monkey Results', results)]])]]
+        notebook = ttk.Notebook(root)
+        notebook.pack(fill="both", expand=True, padx=5, pady=5)
 
-    # create the window
-    window = sg.Window("Bloons Randomizer", tabgrp)
+        notebook.add(self.build_settings_tab(notebook), text="Settings")
+        notebook.add(self.build_results_tab(notebook), text="Monkey Results")
 
-    # accept user input until the window closes
-    while True:
-        event, values = window.read()
+    def build_settings_tab(self, parent):
+        """Builds the Settings tab where the run is configured."""
+        frame = ttk.Frame(parent, padding=10)
 
-        # players config
-        if event == 'ui_players':
-            players = values['ui_players']
+        # number of players
+        ttk.Label(frame, text="Number of Players").grid(row=0, column=0, sticky="w", pady=2)
+        ttk.Combobox(frame, textvariable=self.playersVar, values=["1", "2", "3", "4"],
+                     state="readonly", width=4).grid(row=0, column=1, sticky="w", pady=2)
 
-        # generates new tower lists
-        if event == 'Generate':
-            playerListHandler(window)
+        # per-category tower counts
+        self._count_row(frame, 1, "Primary Towers", self.primaryVar)
+        self._count_row(frame, 2, "Military Towers", self.militaryVar)
+        self._count_row(frame, 3, "Magic Towers", self.magicVar)
+        self._count_row(frame, 4, "Support Towers", self.supportVar)
 
-        # primary config
-        if event == 'ui_primarySub':
-            tempNum = parseTowerCount(values['ui_primary'])
-            if tempNum == -1:
-                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
-            else:
-                numPrimary = tempNum
+        # water tower config
+        ttk.Label(frame, text="Ban Water Towers").grid(row=5, column=0, sticky="w", pady=2)
+        ttk.Checkbutton(frame, variable=self.waterBanVar).grid(row=5, column=1, sticky="w", pady=2)
 
-        # military config
-        if event == 'ui_militarySub':
-            tempNum = parseTowerCount(values['ui_military'])
-            if tempNum == -1:
-                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
-            else:
-                numMilitary = tempNum
+        # hero config
+        ttk.Label(frame, text="Enable Hero").grid(row=6, column=0, sticky="w", pady=2)
+        ttk.Checkbutton(frame, variable=self.heroVar).grid(row=6, column=1, sticky="w", pady=2)
 
-        # magic config
-        if event == 'ui_magicSub':
-            tempNum = parseTowerCount(values['ui_magic'])
-            if tempNum == -1:
-                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
-            else:
-                numMagic = tempNum
+        return frame
 
-        # support config
-        if event == 'ui_supportSub':
-            tempNum = parseTowerCount(values['ui_support'])
-            if tempNum == -1:
-                sg.Popup('Please input an integer from 0 to ' + str(maxMonkeys), title="Error")
-            else:
-                numSupport = tempNum
+    def _count_row(self, frame, row, label, var):
+        """Adds a label + numeric entry row for a tower-count setting."""
+        ttk.Label(frame, text=label, width=14).grid(row=row, column=0, sticky="w", pady=2)
+        ttk.Entry(frame, textvariable=var, width=6).grid(row=row, column=1, sticky="w", pady=2)
 
-        # water ban config
-        if event == 'ui_waterban':
-            waterBan = values['ui_waterban']
+    def build_results_tab(self, parent):
+        """Builds the Monkey Results tab with the Generate button and per-player lists."""
+        frame = ttk.Frame(parent, padding=10)
 
-        # enable hero config
-        if event == 'ui_hero':
-            heroEnabled = values['ui_hero']
+        ttk.Button(frame, text="Generate", command=self.on_generate).grid(
+            row=0, column=0, columnspan=4, sticky="w", pady=(0, 5))
 
-        if event == sg.WIN_CLOSED:
-            break
-    window.close()
+        # one listbox per possible player
+        self.listboxes = []
+        for i in range(4):
+            column = ttk.Frame(frame)
+            column.grid(row=1, column=i, padx=5, sticky="n")
+            ttk.Label(column, text="Player " + str(i + 1)).pack(anchor="w")
+            listbox = tk.Listbox(column, width=30, height=25)
+            listbox.pack()
+            listbox.insert(tk.END, defaultMessage)
+            self.listboxes.append(listbox)
 
+        return frame
 
-def playerListHandler(window):
-    """Maintains the lists for each player"""
-    for i in range(0, int(players)):
-        window["ui_list" + str(i + 1)].update(createList())
+    def read_settings(self):
+        """Reads and validates the settings widgets into the module globals.
 
-    # clears out the empty players' listboxes
-    count = int(players)
-    while count < 4:
-        window["ui_list" + str(count + 1)].update([defaultMessage])
-        count += 1
+        Returns True on success, or False (after showing an error popup) if a
+        tower count is not an integer in the range 0..maxMonkeys.
+        """
+        global players, waterBan, heroEnabled, numPrimary, numMilitary, numMagic, numSupport
+
+        counts = {
+            "Primary": self.primaryVar,
+            "Military": self.militaryVar,
+            "Magic": self.magicVar,
+            "Support": self.supportVar,
+        }
+        parsed = {}
+        for label, var in counts.items():
+            value = parseTowerCount(var.get())
+            if value == -1:
+                messagebox.showerror(
+                    "Error",
+                    label + " Towers must be an integer from 0 to " + str(maxMonkeys))
+                return False
+            parsed[label] = value
+
+        players = int(self.playersVar.get())
+        numPrimary = parsed["Primary"]
+        numMilitary = parsed["Military"]
+        numMagic = parsed["Magic"]
+        numSupport = parsed["Support"]
+        waterBan = self.waterBanVar.get()
+        heroEnabled = self.heroVar.get()
+        return True
+
+    def on_generate(self):
+        """Validates settings then repopulates each player's tower list."""
+        if not self.read_settings():
+            return
+
+        for i in range(int(players)):
+            self._set_list(self.listboxes[i], [str(tower) for tower in createList()])
+
+        # clear out the inactive players' listboxes
+        for i in range(int(players), 4):
+            self._set_list(self.listboxes[i], [defaultMessage])
+
+    def _set_list(self, listbox, items):
+        """Replaces the contents of a listbox with the given items."""
+        listbox.delete(0, tk.END)
+        for item in items:
+            listbox.insert(tk.END, item)
 
 
 def parseTowerCount(userInput):
@@ -153,9 +167,9 @@ def hero():
 
     heroes = ["Quincy", "Gwendolin", "Striker Jones", "Obyn Greenfoot", "Geraldo", "Captain Churchill", "Benjamin", "Ezili",
               "Pat Fusty", "Adora", "Admiral Brickell", "Etienne", "Sauda", "Psi", "Corvus", "Rosalia"]
-    
+
     waterHeroes = ["Admiral Brickell"]
-    
+
     return genTower(heroes, waterHeroes)
 
 
@@ -175,7 +189,7 @@ def military():
     militaries = ["Sniper Monkey", "Monkey Sub", "Monkey Buccaneer", "Monkey Ace", "Heli Pilot", "Mortar Monkey", "Dartling Gunner"]
 
     waterMilitaries = ["Monkey Sub", "Monkey Buccaneer"]
-    
+
     return genTower(militaries, waterMilitaries)
 
 
@@ -183,7 +197,7 @@ def magic():
     """Generates a random magic tower"""
 
     magics = ["Wizard Monkey", "Super Monkey", "Ninja Monkey", "Alchemist", "Druid", "Mermonkey"]
-    
+
     waterMagics = ["Mermonkey"]
 
     return genTower(magics, waterMagics)
@@ -193,11 +207,11 @@ def support():
     """Generates a random support tower"""
 
     supports = ["Banana Farm", "Spike Factory", "Monkey Village", "Engineer Monkey", "Beast Handler"]
-    
+
     waterSupports = ["Beast Handler"]
 
     return genTower(supports, waterSupports)
-    
+
 
 def genTower(towers, waterTowers):
     """Generates a random tower based on the input list and the input list of which towers are water-based"""
@@ -221,7 +235,7 @@ def genPaths():
     cross = random.randint(0, 2)
     while cross == main:
         cross = random.randint(0, 2)
-        
+
     # assigns these global variables that determine the number of upgrades a tower can get
     paths[main] = mainUpgrades
     paths[cross] = crossUpgrades
@@ -286,6 +300,13 @@ class Tower:
 
     def __str__(self):
         return str(self.name + " (" + str(self.paths[0]) + ", " + str(self.paths[1]) + ", " + str(self.paths[2]) + ")")
+
+
+def gen_UI():
+    """Creates the UI upon launch"""
+    root = tk.Tk()
+    RandomizerApp(root)
+    root.mainloop()
 
 
 if __name__ == "__main__":
