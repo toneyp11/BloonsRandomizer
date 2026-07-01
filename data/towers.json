@@ -1,0 +1,2906 @@
+{
+  "meta": {
+    "game": "Bloons TD 6",
+    "description": "Every tower with all upgrade paths, names, and costs.",
+    "costBasis": "Medium difficulty; excludes Monkey Knowledge and all discounts.",
+    "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons.",
+    "camoNote": "The 'camo' field is a placeholder (null) for whether the upgrade grants camo detection."
+  },
+  "categories": [
+    "Primary",
+    "Military",
+    "Magic",
+    "Support"
+  ],
+  "towers": [
+    {
+      "name": "Dart Monkey",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 200,
+      "paragon": {
+        "name": "Apex Plasma Master",
+        "cost": 150000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Sharp Shots",
+              "cost": 140,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Razor Sharp Shots",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Spike-o-pult",
+              "cost": 320,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Juggernaut",
+              "cost": 1800,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Ultra-Juggernaut",
+              "cost": 15000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Quick Shots",
+              "cost": 100,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Very Quick Shots",
+              "cost": 190,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Triple Shot",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Super Monkey Fan Club",
+              "cost": 7200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Plasma Monkey Fan Club",
+              "cost": 45000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Long Range Darts",
+              "cost": 90,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Enhanced Eyesight",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Crossbow",
+              "cost": 575,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Sharp Shooter",
+              "cost": 2050,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Crossbow Master",
+              "cost": 21500,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Boomerang Monkey",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 315,
+      "paragon": {
+        "name": "Glaive Dominus",
+        "cost": 375000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Improved Rangs",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Glaives",
+              "cost": 280,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Glaive Ricochet",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "M.O.A.R Glaives",
+              "cost": 2000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Glaive Lord",
+              "cost": 32500,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Throwing",
+              "cost": 175,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Faster Rangs",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Bionic Boomerang",
+              "cost": 1250,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Turbo Charge",
+              "cost": 4200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Perma Charge",
+              "cost": 35000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Long Range Rangs",
+              "cost": 100,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Red Hot Rangs",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Kylie Boomerang",
+              "cost": 1300,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "MOAB Press",
+              "cost": 2700,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "MOAB Domination",
+              "cost": 50000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Bomb Shooter",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 375,
+      "paragon": {
+        "name": "Ballistic Obliteration Missile Bunker",
+        "cost": 650000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Bigger Bombs",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Heavy Bombs",
+              "cost": 650,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Really Big Bombs",
+              "cost": 1100,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloon Impact",
+              "cost": 2800,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Bloon Crush",
+              "cost": 55000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Reload",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Missile Launcher",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "MOAB Mauler",
+              "cost": 1000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "MOAB Assassin",
+              "cost": 3450,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "MOAB Eliminator",
+              "cost": 26000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Extra Range",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Frag Bombs",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Cluster Bombs",
+              "cost": 700,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Recursive Cluster",
+              "cost": 2500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Bomb Blitz",
+              "cost": 30000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tack Shooter",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 260,
+      "paragon": {
+        "name": "Crucible of Steel and Flame",
+        "cost": 200000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Shooting",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Even Faster Shooting",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Hot Shots",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Ring of Fire",
+              "cost": 3500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Inferno Ring",
+              "cost": 45500,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Long Range Tacks",
+              "cost": 100,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Super Range Tacks",
+              "cost": 225,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Blade Shooter",
+              "cost": 550,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Blade Maelstrom",
+              "cost": 2700,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Super Maelstrom",
+              "cost": 15000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "More Tacks",
+              "cost": 110,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Even More Tacks",
+              "cost": 110,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Tack Sprayer",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Overdrive",
+              "cost": 3200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Tack Zone",
+              "cost": 20000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ice Monkey",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 400,
+      "paragon": {
+        "name": "Herald of Everfrost",
+        "cost": 300000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Permafrost",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Cold Snap",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Ice Shards",
+              "cost": 1500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Embrittlement",
+              "cost": 2300,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Super Brittle",
+              "cost": 28000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Enhanced Freeze",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Deep Freeze",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Arctic Wind",
+              "cost": 2750,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Snowstorm",
+              "cost": 4000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Absolute Zero",
+              "cost": 21000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Larger Radius",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Re-Freeze",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Cryo Cannon",
+              "cost": 1900,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Icicles",
+              "cost": 2750,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Icicle Impale",
+              "cost": 30000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Glue Gunner",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 225,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Glue Soak",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Corrosive Glue",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Bloon Dissolver",
+              "cost": 2000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloon Liquefier",
+              "cost": 5000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Bloon Solver",
+              "cost": 22500,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Bigger Globs",
+              "cost": 100,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Glue Splatter",
+              "cost": 970,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Glue Hose",
+              "cost": 1950,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Glue Strike",
+              "cost": 4000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Glue Storm",
+              "cost": 16000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Stickier Glue",
+              "cost": 280,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Stronger Glue",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "MOAB Glue",
+              "cost": 3600,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Relentless Glue",
+              "cost": 4000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Super Glue",
+              "cost": 24000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Desperado",
+      "category": "Primary",
+      "water": false,
+      "baseCost": 300,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Quickdraw",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Standoff",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Big Iron",
+              "cost": 1200,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Twin Sixes",
+              "cost": 5800,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Blazing Sun",
+              "cost": 16500,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Eagle Eye",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Bullseye",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Deadeye",
+              "cost": 3000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bounty Hunter",
+              "cost": 6000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Golden Justice",
+              "cost": 42000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Wanderer",
+              "cost": 220,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Nomad",
+              "cost": 280,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Enforcer",
+              "cost": 2100,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Avenger",
+              "cost": 9500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Desert Phantom",
+              "cost": 31000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sniper Monkey",
+      "category": "Military",
+      "water": false,
+      "baseCost": 350,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Full Metal Jacket",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Large Calibre",
+              "cost": 1300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Deadly Precision",
+              "cost": 2200,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Maim MOAB",
+              "cost": 6300,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Cripple MOAB",
+              "cost": 32000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Night Vision Goggles",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Shrapnel Shot",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Bouncing Bullet",
+              "cost": 2100,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Supply Drop",
+              "cost": 7600,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Elite Sniper",
+              "cost": 12000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Fast Firing",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Even Faster Firing",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Semi-Automatic",
+              "cost": 2700,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Full Auto Rifle",
+              "cost": 4100,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Elite Defender",
+              "cost": 14900,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monkey Sub",
+      "category": "Military",
+      "water": true,
+      "baseCost": 325,
+      "paragon": {
+        "name": "Nautic Siege Core",
+        "cost": 400000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Longer Range",
+              "cost": 130,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Advanced Intel",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Submerge and Support",
+              "cost": 700,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloontonium Reactor",
+              "cost": 2400,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Energizer",
+              "cost": 28000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Barbed Darts",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Heat-tipped Darts",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Ballistic Missile",
+              "cost": 1350,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "First Strike Capability",
+              "cost": 13000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Pre-emptive Strike",
+              "cost": 29000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Twin Guns",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Airburst Darts",
+              "cost": 1000,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Triple Guns",
+              "cost": 1100,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Armor Piercing Darts",
+              "cost": 2500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Sub Commander",
+              "cost": 25000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monkey Buccaneer",
+      "category": "Military",
+      "water": true,
+      "baseCost": 400,
+      "paragon": {
+        "name": "Navarch of the Seas",
+        "cost": 550000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Shooting",
+              "cost": 275,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Double Shot",
+              "cost": 425,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Destroyer",
+              "cost": 3350,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Aircraft Carrier",
+              "cost": 8000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Carrier Flagship",
+              "cost": 26000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Grape Shot",
+              "cost": 550,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Hot Shot",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Cannon Ship",
+              "cost": 900,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Monkey Pirates",
+              "cost": 3900,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Pirate Lord",
+              "cost": 27000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Long Range",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Crow's Nest",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Merchantman",
+              "cost": 2400,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Favored Trades",
+              "cost": 5500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Trade Empire",
+              "cost": 23000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monkey Ace",
+      "category": "Military",
+      "water": false,
+      "baseCost": 800,
+      "paragon": {
+        "name": "Goliath Doomship",
+        "cost": 900000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Rapid Fire",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Lots More Darts",
+              "cost": 550,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Fighter Plane",
+              "cost": 1000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Operation: Dart Storm",
+              "cost": 3300,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Sky Shredder",
+              "cost": 42500,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Exploding Pineapple",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Spy Plane",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Bomber Ace",
+              "cost": 900,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Ground Zero",
+              "cost": 16000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Tsar Bomba",
+              "cost": 26000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Sharper Darts",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Centered Path",
+              "cost": 550,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Neva-Miss Targeting",
+              "cost": 2550,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Spectre",
+              "cost": 23400,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Flying Fortress",
+              "cost": 90000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Heli Pilot",
+      "category": "Military",
+      "water": false,
+      "baseCost": 1500,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Quad Darts",
+              "cost": 800,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Pursuit",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Razor Rotors",
+              "cost": 1850,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Apache Dartship",
+              "cost": 19600,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Apache Prime",
+              "cost": 45000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Bigger Jets",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "IFR",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Downdraft",
+              "cost": 3500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Support Chinook",
+              "cost": 9500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Special Poperations",
+              "cost": 30000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Darts",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Faster Firing",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "MOAB Shove",
+              "cost": 3400,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Comanche Defense",
+              "cost": 8500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Comanche Commander",
+              "cost": 35000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mortar Monkey",
+      "category": "Military",
+      "water": false,
+      "baseCost": 600,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Bigger Blast",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Bloon Buster",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Shell Shock",
+              "cost": 825,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "The Big One",
+              "cost": 7000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Biggest One",
+              "cost": 36000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Reload",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Rapid Reload",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Heavy Shells",
+              "cost": 900,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Artillery Battery",
+              "cost": 6500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Pop and Awe",
+              "cost": 38000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Increased Accuracy",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Burny Stuff",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Signal Flare",
+              "cost": 1100,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Shattering Shells",
+              "cost": 9500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Blooncineration",
+              "cost": 40000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dartling Gunner",
+      "category": "Military",
+      "water": false,
+      "baseCost": 850,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Focused Firing",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Laser Shock",
+              "cost": 900,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Laser Cannon",
+              "cost": 3000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Plasma Accelerator",
+              "cost": 11750,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Ray of Doom",
+              "cost": 75000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Advanced Targeting",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Faster Barrel Spin",
+              "cost": 950,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Hydra Rocket Pods",
+              "cost": 4500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Rocket Storm",
+              "cost": 5000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "M.A.D",
+              "cost": 65000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Swivel",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Powerful Darts",
+              "cost": 1200,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Buckshot",
+              "cost": 3000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloon Area Denial System",
+              "cost": 12000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Bloon Exclusion Zone",
+              "cost": 58000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Wizard Monkey",
+      "category": "Magic",
+      "water": false,
+      "baseCost": 250,
+      "paragon": {
+        "name": "Magus Perfectus",
+        "cost": 800000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Guided Magic",
+              "cost": 175,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Arcane Blast",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Arcane Mastery",
+              "cost": 1450,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Arcane Spike",
+              "cost": 10000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Archmage",
+              "cost": 32000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Fireball",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Wall of Fire",
+              "cost": 800,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Dragon's Breath",
+              "cost": 3300,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Summon Phoenix",
+              "cost": 6000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Wizard Lord Phoenix",
+              "cost": 50000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Intense Magic",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Monkey Sense",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Shimmer",
+              "cost": 1500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Necromancer: Unpopped Army",
+              "cost": 2800,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Prince of Darkness",
+              "cost": 26500,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Super Monkey",
+      "category": "Magic",
+      "water": false,
+      "baseCost": 2500,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Laser Blasts",
+              "cost": 2000,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Plasma Blasts",
+              "cost": 2500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Sun Avatar",
+              "cost": 20000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Sun Temple",
+              "cost": 100000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "True Sun God",
+              "cost": 500000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Super Range",
+              "cost": 1500,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Epic Range",
+              "cost": 1900,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Robo Monkey",
+              "cost": 7500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Tech Terror",
+              "cost": 25000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Anti-Bloon",
+              "cost": 70000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Knockback",
+              "cost": 3000,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Ultravision",
+              "cost": 1200,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Dark Knight",
+              "cost": 5600,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Dark Champion",
+              "cost": 55555,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Legend of the Night",
+              "cost": 165650,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Ninja Monkey",
+      "category": "Magic",
+      "water": false,
+      "baseCost": 400,
+      "paragon": {
+        "name": "Ascended Shadow",
+        "cost": 500000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Ninja Discipline",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Sharp Shurikens",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Double Shot",
+              "cost": 900,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloonjitsu",
+              "cost": 2750,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Grandmaster Ninja",
+              "cost": 35000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Distraction",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Counter-Espionage",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Shinobi Tactics",
+              "cost": 1200,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloon Sabotage",
+              "cost": 5200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Grand Saboteur",
+              "cost": 22000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Seeking Shuriken",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Caltrops",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Flash Bomb",
+              "cost": 2250,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Sticky Bomb",
+              "cost": 5000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Master Bomber",
+              "cost": 40000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Alchemist",
+      "category": "Magic",
+      "water": false,
+      "baseCost": 550,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Larger Potions",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Acidic Mixture Dip",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Berserker Brew",
+              "cost": 1400,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Stronger Stimulant",
+              "cost": 2850,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Permanent Brew",
+              "cost": 48000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Stronger Acid",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Perishing Potions",
+              "cost": 475,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Unstable Concoction",
+              "cost": 2800,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Transforming Tonic",
+              "cost": 4200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Total Transformation",
+              "cost": 45000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Throwing",
+              "cost": 650,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Acid Pool",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Lead to Gold",
+              "cost": 1000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Rubber to Gold",
+              "cost": 2750,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Bloon Master Alchemist",
+              "cost": 40000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Druid",
+      "category": "Magic",
+      "water": false,
+      "baseCost": 400,
+      "paragon": {
+        "name": "Root of all Nature",
+        "cost": 475000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Hard Thorns",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Heart of Thunder",
+              "cost": 850,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Druid of the Storm",
+              "cost": 1700,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Ball Lightning",
+              "cost": 4500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Monarch of Storms",
+              "cost": 60000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Thorn Swarm",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Heart of Oak",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Druid of the Jungle",
+              "cost": 1050,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Jungle's Bounty",
+              "cost": 4900,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Spirit of the Forest",
+              "cost": 35000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Druidic Reach",
+              "cost": 100,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Heart of Vengeance",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Druid of Wrath",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Poplust",
+              "cost": 2350,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Avatar of Wrath",
+              "cost": 45000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mermonkey",
+      "category": "Magic",
+      "water": true,
+      "baseCost": 300,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Trident Efficiency",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Trident Swiftness",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Abyss Dweller",
+              "cost": 1800,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Abyssal Warrior",
+              "cost": 4200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Lord of the Abyss",
+              "cost": 23000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Sharper Prongs",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Tidal Chill",
+              "cost": 225,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Riptide Champion",
+              "cost": 2000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Arctic Knight",
+              "cost": 8000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Popseidon",
+              "cost": 52000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Echosense Precision",
+              "cost": 200,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Echosense Network",
+              "cost": 280,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Alluring Melody",
+              "cost": 2000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Symphonic Resonance",
+              "cost": 7600,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "The Final Harmonic",
+              "cost": 25000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Banana Farm",
+      "category": "Support",
+      "water": false,
+      "baseCost": 1250,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Increased Production",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Greater Production",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Banana Plantation",
+              "cost": 3000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Banana Research Facility",
+              "cost": 19000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Banana Central",
+              "cost": 115000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Long Life Bananas",
+              "cost": 300,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Valuable Bananas",
+              "cost": 800,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Monkey Bank",
+              "cost": 3650,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "IMF Loan",
+              "cost": 7200,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Monkey-Nomics",
+              "cost": 100000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "EZ Collect",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Banana Salvage",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Marketplace",
+              "cost": 2700,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Central Market",
+              "cost": 15000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Monkey Wall Street",
+              "cost": 70000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Spike Factory",
+      "category": "Support",
+      "water": false,
+      "baseCost": 1000,
+      "paragon": {
+        "name": "Mega Massive Munitions Factory",
+        "cost": 750000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Bigger Stacks",
+              "cost": 800,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "White Hot Spikes",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Spiked Balls",
+              "cost": 2300,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Spiked Mines",
+              "cost": 9500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Super Mines",
+              "cost": 125000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Faster Production",
+              "cost": 600,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Even Faster Production",
+              "cost": 800,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "MOAB SHREDR",
+              "cost": 2500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Spike Storm",
+              "cost": 7000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Carpet of Spikes",
+              "cost": 41000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Long Reach",
+              "cost": 150,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Smart Spikes",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Long Life Spikes",
+              "cost": 1300,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Deadly Spikes",
+              "cost": 3600,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Perma-Spike",
+              "cost": 30000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Monkey Village",
+      "category": "Support",
+      "water": false,
+      "baseCost": 1200,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Bigger Radius",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Jungle Drums",
+              "cost": 1500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Primary Training",
+              "cost": 800,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Primary Mentoring",
+              "cost": 2500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Primary Expertise",
+              "cost": 25000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Grow Blocker",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Radar Scanner",
+              "cost": 2000,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Monkey Intelligence Bureau",
+              "cost": 7500,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Call to Arms",
+              "cost": 20000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Homeland Defense",
+              "cost": 40000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Monkey Business",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Monkey Commerce",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Monkey Town",
+              "cost": 10000,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Monkey City",
+              "cost": 3000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Monkeyopolis",
+              "cost": 5000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Engineer Monkey",
+      "category": "Support",
+      "water": false,
+      "baseCost": 350,
+      "paragon": {
+        "name": "Master Builder",
+        "cost": 600000
+      },
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Sentry Gun",
+              "cost": 500,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Faster Engineering",
+              "cost": 400,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Sprockets",
+              "cost": 575,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Sentry Expert",
+              "cost": 2500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Sentry Champion",
+              "cost": 32000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Larger Service Area",
+              "cost": 250,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Deconstruction",
+              "cost": 350,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Cleansing Foam",
+              "cost": 900,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Overclock",
+              "cost": 13500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Ultraboost",
+              "cost": 72000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Oversize Nails",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Pin",
+              "cost": 220,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Double Gun",
+              "cost": 450,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Bloon Trap",
+              "cost": 3600,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "XXXL Trap",
+              "cost": 45000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Beast Handler",
+      "category": "Support",
+      "water": true,
+      "baseCost": 250,
+      "paragon": null,
+      "paths": [
+        {
+          "path": 1,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Piranha",
+              "cost": 160,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Barracuda",
+              "cost": 810,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Great White",
+              "cost": 2010,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Orca",
+              "cost": 12500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Megalodon",
+              "cost": 45000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 2,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Microraptor",
+              "cost": 175,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Adasaurus",
+              "cost": 830,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Velociraptor",
+              "cost": 2065,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Tyrannosaurus Rex",
+              "cost": 9500,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Giganotosaurus",
+              "cost": 60000,
+              "camo": null
+            }
+          ]
+        },
+        {
+          "path": 3,
+          "tiers": [
+            {
+              "tier": 1,
+              "name": "Gyrfalcon",
+              "cost": 190,
+              "camo": null
+            },
+            {
+              "tier": 2,
+              "name": "Horned Owl",
+              "cost": 860,
+              "camo": null
+            },
+            {
+              "tier": 3,
+              "name": "Golden Eagle",
+              "cost": 2120,
+              "camo": null
+            },
+            {
+              "tier": 4,
+              "name": "Giant Condor",
+              "cost": 9000,
+              "camo": null
+            },
+            {
+              "tier": 5,
+              "name": "Pouākai",
+              "cost": 30000,
+              "camo": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

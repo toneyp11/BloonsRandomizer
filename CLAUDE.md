@@ -74,10 +74,34 @@ two-path upgrade rule.
 
 ## Updating for a new BTD6 version
 
-Game content lives in the roster lists inside `hero()`, `primary()`,
-`military()`, `magic()`, `support()`. Each also has a `water*` list marking
-which entries are water-based (used by the "Ban Water Towers" option). Add new
-towers/heroes to both the roster and, if applicable, its water list.
+Game content currently lives in two places:
+- The roster lists inside `hero()`, `primary()`, `military()`, `magic()`,
+  `support()` in `BloonsRandomizer.py` (each with a `water*` list). NOTE: this
+  roster is stale — it targets ~v44 and is missing at least **Desperado** (a
+  Primary). Prefer migrating the app to read `data/towers.json` (below) rather
+  than maintaining these lists by hand.
+- `data/towers.json` — the full, current dataset (see next section).
+
+## Tower dataset (`data/towers.json`)
+
+Single source of truth for every tower, upgrade, and cost. Structure:
+`towers[]` each with `name`, `category` (Primary/Military/Magic/Support),
+`water` (bool), `baseCost`, `paragon` (`{name, cost}` or null), and `paths[]`
+(3 paths x 5 `tiers[]`, each `{tier, name, cost, camo}`).
+
+- **Costs** are Medium difficulty, excluding Monkey Knowledge/discounts.
+- **`camo`** is a placeholder (`null`) — to be populated later with whether
+  each upgrade grants camo detection.
+- **Sourcing:** names + costs come from the Blooncyclopedia (bloonswiki.com)
+  MediaWiki Cargo tables, which are queryable via
+  `api.php?action=cargoquery&tables=btd6_upgrades|btd6_paragons|btd6_towers`.
+  The public HTML/`WebFetch` path is bot-blocked (402/403), but `curl` against
+  `api.php` works. Costs were cross-checked against the blackeyefly calculator
+  (`github.com/blackeyefly/blackeyefly.github.io`, `src/models/utils.ts`).
+- `tests/test_towers_data.py` validates the file's shape (25 towers, 375
+  upgrades, category counts, field types) — run it after any regeneration.
+- The wiki data tracks the live game (~v54); when refreshing, re-query the
+  Cargo tables rather than editing values by hand.
 
 ## Dependency policy
 
