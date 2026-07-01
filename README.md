@@ -11,7 +11,7 @@ python BloonsRandomizer.py
 ```
 
 Every generated set is guaranteed to include at least one tower or hero that
-can detect Camo Bloons.
+can detect Camo Bloons; those picks are marked `[Camo]` in the results.
 
 Planned Functionality
 ---

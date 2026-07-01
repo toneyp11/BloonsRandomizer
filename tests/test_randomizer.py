@@ -195,6 +195,22 @@ def test_hero_str_has_no_path():
     assert str(b.Tower("Quincy", False, None, isHero=True)) == "Quincy"
 
 
+def test_camo_marker_on_tower():
+    tower = b.Tower("Dartling Gunner", False, [0, 5, 2])
+    tower.camo = True
+    assert str(tower) == "Dartling Gunner (0, 5, 2) [Camo]"
+
+
+def test_camo_marker_on_hero():
+    hero = b.Tower("Ezili", False, None, isHero=True)
+    hero.camo = True
+    assert str(hero) == "Ezili [Camo]"
+
+
+def test_no_camo_marker_when_not_detected():
+    assert "[Camo]" not in str(b.Tower("Bomb Shooter", False, [5, 2, 0]))
+
+
 def test_generated_heroes_display_without_path():
     for _ in range(200):
         text = str(b.hero())

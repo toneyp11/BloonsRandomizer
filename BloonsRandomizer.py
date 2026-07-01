@@ -364,8 +364,12 @@ class Tower:
 
     def __str__(self):
         if self.isHero:
-            return self.name
-        return str(self.name + " (" + str(self.paths[0]) + ", " + str(self.paths[1]) + ", " + str(self.paths[2]) + ")")
+            label = self.name
+        else:
+            label = self.name + " (" + str(self.paths[0]) + ", " + str(self.paths[1]) + ", " + str(self.paths[2]) + ")"
+        if self.camo:
+            label += " [Camo]"
+        return label
 
 
 def gen_UI():
