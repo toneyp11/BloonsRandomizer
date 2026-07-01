@@ -51,9 +51,18 @@ Three layers:
    `numPrimary`/`numMilitary`/`numMagic`/`numSupport`, `mainUpgrades`,
    `crossUpgrades`). The UI writes these; the logic reads them.
 2. **Pure logic** — `hero()`/`primary()`/`military()`/`magic()`/`support()`
-   define the rosters and call `genTower()`; `genPaths()` rolls the upgrade
-   spread; `generateMonkeyList()` + `checkConditions()` + `createList()`
-   assemble a valid per-player list. `Tower` is the data class. These are the
+   draw from the loaded pools via `genTowerFromCategory()`; `genPaths()` rolls
+   the upgrade spread (one main path at `mainUpgrades`, one cross at
+   `crossUpgrades`). `generateMonkeyList()` builds a player's set and applies
+   two generation rules:
+   - **Distinct fifth tiers** (`enforceDistinctFifthTiers`): duplicate copies
+     of the same tower get different main (tier-5) paths; only 3 paths exist,
+     so a 4th+ copy necessarily repeats.
+   - **Camo guarantee** (`checkConditions` + the retry loop in `createList`,
+     capped by `maxGenerationAttempts`): every non-empty set must contain a
+     camo-detecting source. `towerHasCamo()` decides per rolled paths; only
+     innate-camo heroes count. Water ban is also enforced here.
+   `Tower` is the data class (`camo` is computed at roll time). These are the
    easily testable parts — add tests here when you change behavior.
 3. **UI** — `RandomizerApp` (tkinter/`ttk`): a Settings tab and a Monkey
    Results tab with one listbox per player. `read_settings()` validates the

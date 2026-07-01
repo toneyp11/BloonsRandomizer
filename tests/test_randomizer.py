@@ -124,6 +124,54 @@ def test_impossible_camo_config_does_not_hang():
     assert b.createList() == []
 
 
+# --- distinct fifth tiers --------------------------------------------------
+
+def _main_index(tower):
+    return tower.paths.index(b.mainUpgrades)
+
+
+def test_two_duplicates_get_distinct_fifth_tiers():
+    towers = [b.Tower("Dart Monkey", False, [5, 2, 0]),
+              b.Tower("Dart Monkey", False, [5, 0, 2])]
+    b.enforceDistinctFifthTiers(towers)
+    assert _main_index(towers[0]) != _main_index(towers[1])
+
+
+def test_three_duplicates_use_all_three_paths():
+    towers = [b.Tower("Dart Monkey", False, [5, 2, 0]) for _ in range(3)]
+    b.enforceDistinctFifthTiers(towers)
+    assert sorted(_main_index(t) for t in towers) == [0, 1, 2]
+
+
+def test_four_duplicates_allowed_with_max_distinctness():
+    towers = [b.Tower("Dart Monkey", False, [5, 2, 0]) for _ in range(4)]
+    b.enforceDistinctFifthTiers(towers)  # must not raise
+    # only three paths exist, so four copies cover all three (one repeat)
+    assert len(set(_main_index(t) for t in towers)) == 3
+
+
+def test_distinct_towers_are_untouched():
+    dart = b.Tower("Dart Monkey", False, [5, 2, 0])
+    ninja = b.Tower("Ninja Monkey", False, [0, 2, 5])
+    b.enforceDistinctFifthTiers([dart, ninja])
+    assert dart.paths == [5, 2, 0]
+    assert ninja.paths == [0, 2, 5]
+
+
+def test_generated_duplicates_have_distinct_fifth_tiers():
+    b.heroEnabled = False
+    b.waterBan = False
+    b.numPrimary = b.numMilitary = b.numMagic = b.numSupport = 5
+    for _ in range(200):
+        groups = {}
+        for tower in b.createList():
+            groups.setdefault(tower.name, []).append(tower)
+        for name, group in groups.items():
+            mains = [_main_index(t) for t in group]
+            # distinct while the 3 paths allow it, then repeats are permitted
+            assert len(set(mains)) == min(len(group), 3), (name, mains)
+
+
 def test_check_conditions_rejects_water_when_banned():
     b.waterBan = True
     water_tower = b.Tower("Monkey Sub", True, [5, 2, 0])

@@ -47,6 +47,7 @@ def loadTowerPools():
 
 
 towerPools = loadTowerPools()
+towerByName = {tower["name"]: tower for pool in towerPools.values() for tower in pool}
 
 
 class RandomizerApp:
@@ -239,18 +240,57 @@ def towerHasCamo(towerData, paths):
     return False
 
 
-def genPaths():
-    """Generates the paths for a tower and returns an array of three integers that represent the towers"""
+def pathsWithMain(main):
+    """Builds a path spread with the given main (tier-5) path and a random cross path"""
     paths = [0, 0, 0]
-    main = random.randint(0, 2)
     cross = random.randint(0, 2)
     while cross == main:
         cross = random.randint(0, 2)
 
-    # assigns these global variables that determine the number of upgrades a tower can get
+    # these values determine the number of upgrades a tower can get on each path
     paths[main] = mainUpgrades
     paths[cross] = crossUpgrades
     return paths
+
+
+def genPaths():
+    """Generates the paths for a tower and returns an array of three integers that represent the towers"""
+    return pathsWithMain(random.randint(0, 2))
+
+
+def distinctMains(count):
+    """Returns `count` main-path indices, kept distinct while possible.
+
+    Only three paths exist, so once more than three copies are requested the
+    extras necessarily reuse paths.
+    """
+    mains = []
+    order = []
+    while len(mains) < count:
+        if not order:
+            order = [0, 1, 2]
+            random.shuffle(order)
+        mains.append(order.pop())
+    return mains
+
+
+def enforceDistinctFifthTiers(monkeyList):
+    """Reassigns main (tier-5) paths so duplicate towers don't share a fifth tier.
+
+    Heroes are skipped (no paths). When a tower appears more times than there
+    are paths, the excess copies reuse paths, which is unavoidable.
+    """
+    groups = {}
+    for tower in monkeyList:
+        if not tower.isHero:
+            groups.setdefault(tower.name, []).append(tower)
+
+    for name, group in groups.items():
+        if len(group) < 2:
+            continue
+        for tower, main in zip(group, distinctMains(len(group))):
+            tower.paths = pathsWithMain(main)
+            tower.camo = towerHasCamo(towerByName[name], tower.paths)
 
 
 def generateMonkeyList():
@@ -278,6 +318,7 @@ def generateMonkeyList():
     for i in range(0, numSupport):
         monkeyList.append(support())
 
+    enforceDistinctFifthTiers(monkeyList)
     return monkeyList
 
 
