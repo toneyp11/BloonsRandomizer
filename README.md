@@ -10,8 +10,10 @@ library — no third-party packages or license keys needed). Run:
 python BloonsRandomizer.py
 ```
 
+Every generated set is guaranteed to include at least one tower or hero that
+can detect Camo Bloons.
+
 Planned Functionality
 ---
 - Individual player config
-- Camo detection guarantee
 - Price config

@@ -85,6 +85,45 @@ def test_water_ban_excludes_water_towers():
         assert all(not t.water for t in towers)
 
 
+# --- camo detection guarantee ----------------------------------------------
+
+def test_tower_has_camo_uses_rolled_paths():
+    dart = next(t for t in b.towerPools["Primary"] if t["name"] == "Dart Monkey")
+    # Enhanced Eyesight is path 3 tier 2: camo only when bottom path >= 2
+    assert b.towerHasCamo(dart, [5, 2, 0]) is False   # bottom path unbought
+    assert b.towerHasCamo(dart, [5, 0, 2]) is True     # bottom path at tier 2
+    assert b.towerHasCamo(dart, [2, 0, 5]) is True     # bottom path at tier 5
+
+
+def test_tower_has_camo_innate():
+    ninja = next(t for t in b.towerPools["Magic"] if t["name"] == "Ninja Monkey")
+    assert b.towerHasCamo(ninja, [0, 2, 5]) is True    # innate, any spread
+
+
+def test_generated_sets_always_have_camo():
+    b.waterBan = False
+    b.heroEnabled = True
+    b.numPrimary = b.numMilitary = b.numMagic = b.numSupport = 1
+    for _ in range(300):
+        towers = b.createList()
+        assert any(t.camo for t in towers)
+
+
+def test_only_innate_heroes_satisfy_camo():
+    # a generated hero counts for camo only if it detects camo from level 1
+    innate = {"Ezili", "Sauda", "Psi", "Silas"}
+    for _ in range(300):
+        h = b.hero()
+        assert h.camo == (h.name in innate)
+
+
+def test_impossible_camo_config_does_not_hang():
+    # no towers and no hero -> empty set; must return without looping forever
+    b.heroEnabled = False
+    b.numPrimary = b.numMilitary = b.numMagic = b.numSupport = 0
+    assert b.createList() == []
+
+
 def test_check_conditions_rejects_water_when_banned():
     b.waterBan = True
     water_tower = b.Tower("Monkey Sub", True, [5, 2, 0])
@@ -94,6 +133,7 @@ def test_check_conditions_rejects_water_when_banned():
 def test_check_conditions_allows_water_when_not_banned():
     b.waterBan = False
     water_tower = b.Tower("Monkey Sub", True, [5, 2, 0])
+    water_tower.camo = True  # satisfy the always-on camo guarantee in isolation
     assert b.checkConditions([water_tower]) is True
 
 
