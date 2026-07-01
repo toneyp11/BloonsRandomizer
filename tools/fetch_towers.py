@@ -33,6 +33,60 @@ STANDARD = {name for names in CATEGORY.values() for name in names}
 # Towers that can be placed on water (drives the app's "Ban Water Towers" option).
 WATER = {"Monkey Sub", "Monkey Buccaneer", "Mermonkey", "Beast Handler"}
 
+# Camo detection, from the wiki "Camo detection" page (BTD6 section, last updated
+# v53.2). Each entry names the upgrade that grants the tower *permanent* camo
+# detection; that upgrade and every higher tier on the same path get camo=true.
+# Resolved by name at build time so a path/tier reshuffle can't silently misplace
+# it. Conditional/ability-only and paragon-only sources are intentionally excluded
+# (e.g. Boomerang Turbo Charge, Monkey Sub / Engineer paragons); "decamo" upgrades
+# that strip camo but don't grant detection are also excluded.
+CAMO_GRANT = {
+    "Dart Monkey": "Enhanced Eyesight",
+    "Ice Monkey": "Cold Snap",
+    "Desperado": "Eagle Eye",
+    "Sniper Monkey": "Night Vision Goggles",
+    "Monkey Buccaneer": "Crow's Nest",
+    "Monkey Ace": "Spy Plane",
+    "Heli Pilot": "IFR",
+    "Mortar Monkey": "Signal Flare",
+    "Dartling Gunner": "Advanced Targeting",
+    "Wizard Monkey": "Monkey Sense",
+    "Super Monkey": "Ultravision",
+    "Druid": "Ball Lightning",
+    "Mermonkey": "Echosense Precision",
+    "Monkey Village": "Radar Scanner",
+    "Beast Handler": "Horned Owl",
+}
+# Towers that detect camo with no upgrade at all.
+INNATE_CAMO = {"Ninja Monkey"}
+
+
+def apply_camo(name, paths):
+    """Set the camo flag on every upgrade tier and return the tower innateCamo flag.
+
+    camo=True means the tower has permanent camo detection once that upgrade is
+    owned (the granting upgrade and higher tiers on its path). Raises if a
+    configured granting upgrade name is not present in the tower's paths.
+    """
+    innate = name in INNATE_CAMO
+    grant_name = CAMO_GRANT.get(name)
+    grant_pos = None  # (path, tier) of the granting upgrade
+    if grant_name:
+        for path in paths:
+            for upg in path["tiers"]:
+                if upg["name"] == grant_name:
+                    grant_pos = (path["path"], upg["tier"])
+        if grant_pos is None:
+            raise RuntimeError(f"{name}: camo-granting upgrade '{grant_name}' not found")
+
+    for path in paths:
+        for upg in path["tiers"]:
+            camo = innate
+            if grant_pos and path["path"] == grant_pos[0] and upg["tier"] >= grant_pos[1]:
+                camo = True
+            upg["camo"] = camo
+    return innate
+
 
 def cargo(tables, fields, order_by, where=None):
     """Run a Cargo query and return the list of row dicts."""
@@ -86,8 +140,10 @@ def build():
                     tiers.append({"tier": tier, "name": cell["name"],
                                   "cost": cell["cost"], "camo": None})
                 paths.append({"path": p, "tiers": tiers})
+            innate = apply_camo(name, paths)
             towers.append({
                 "name": name, "category": category, "water": name in WATER,
+                "innateCamo": innate,
                 "baseCost": base_cost.get(name), "paragon": paragon.get(name),
                 "paths": paths,
             })
@@ -101,7 +157,7 @@ def build():
             "description": "Every tower with all upgrade paths, names, and costs.",
             "costBasis": "Medium difficulty; excludes Monkey Knowledge and all discounts.",
             "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons.",
-            "camoNote": "The 'camo' field is a placeholder (null) for whether the upgrade grants camo detection.",
+            "camoNote": "Per-upgrade 'camo' is True when the tower has permanent camo detection once that upgrade is owned (granting upgrade and higher tiers on its path). 'innateCamo' marks towers that detect camo with no upgrade (Ninja Monkey). Source: wiki 'Camo detection' page, BTD6 section (v53.2). Excludes conditional/ability-only, paragon-only, and decamo-only sources.",
         },
         "categories": list(CATEGORY),
         "towers": towers,

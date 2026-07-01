@@ -86,12 +86,17 @@ Game content currently lives in two places:
 
 Single source of truth for every tower, upgrade, and cost. Structure:
 `towers[]` each with `name`, `category` (Primary/Military/Magic/Support),
-`water` (bool), `baseCost`, `paragon` (`{name, cost}` or null), and `paths[]`
-(3 paths x 5 `tiers[]`, each `{tier, name, cost, camo}`).
+`water` (bool), `innateCamo` (bool), `baseCost`, `paragon` (`{name, cost}` or
+null), and `paths[]` (3 paths x 5 `tiers[]`, each `{tier, name, cost, camo}`).
 
 - **Costs** are Medium difficulty, excluding Monkey Knowledge/discounts.
-- **`camo`** is a placeholder (`null`) — to be populated later with whether
-  each upgrade grants camo detection.
+- **`camo`** is True when the tower has permanent camo detection once that
+  upgrade is owned (the granting upgrade and higher tiers on its path).
+  **`innateCamo`** marks towers that detect camo with no upgrade (Ninja Monkey).
+  Camo data comes from the wiki "Camo detection" page (v53.2); conditional,
+  ability-only, paragon-only, and decamo-only sources are excluded. The
+  granting upgrades are configured by name in `tools/fetch_towers.py`
+  (`CAMO_GRANT` / `INNATE_CAMO`).
 - **Sourcing:** names + costs come from the Blooncyclopedia (bloonswiki.com)
   MediaWiki Cargo tables, which are queryable via
   `api.php?action=cargoquery&tables=btd6_upgrades|btd6_paragons|btd6_towers`.

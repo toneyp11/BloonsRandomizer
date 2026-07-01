@@ -64,8 +64,40 @@ def test_upgrade_fields(data):
             for upg in path["tiers"]:
                 assert isinstance(upg["name"], str) and upg["name"], tower["name"]
                 assert isinstance(upg["cost"], int) and upg["cost"] >= 0, tower["name"]
-                # camo is a deliberate placeholder for now
-                assert "camo" in upg, tower["name"]
+                assert isinstance(upg["camo"], bool), tower["name"]
+
+
+def test_innate_camo_is_bool(data):
+    for tower in data["towers"]:
+        assert isinstance(tower["innateCamo"], bool), tower["name"]
+
+
+def test_camo_persists_up_each_path(data):
+    """Once an upgrade grants camo, higher tiers on the same path keep it."""
+    for tower in data["towers"]:
+        for path in tower["paths"]:
+            seen_camo = False
+            for upg in path["tiers"]:
+                if upg["camo"]:
+                    seen_camo = True
+                elif seen_camo:
+                    raise AssertionError(
+                        f"{tower['name']} path {path['path']} loses camo after gaining it")
+
+
+def test_known_camo_anchors(data):
+    """Spot-check a few known camo facts against the wiki."""
+    by_name = {t["name"]: t for t in data["towers"]}
+    # Ninja detects camo innately
+    assert by_name["Ninja Monkey"]["innateCamo"] is True
+    # Dart Monkey gains camo at Enhanced Eyesight (path 3, tier 2)
+    dart_p3 = by_name["Dart Monkey"]["paths"][2]["tiers"]
+    assert dart_p3[0]["camo"] is False   # tier 1
+    assert dart_p3[1]["camo"] is True    # tier 2 (Enhanced Eyesight)
+    # Bomb Shooter never detects camo
+    bomb = by_name["Bomb Shooter"]
+    assert bomb["innateCamo"] is False
+    assert not any(u["camo"] for p in bomb["paths"] for u in p["tiers"])
 
 
 def test_paragons_well_formed(data):
