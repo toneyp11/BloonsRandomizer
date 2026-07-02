@@ -4,7 +4,9 @@ Tower Randomizer for BTD6
 ## Usage
 
 Requires Python 3 (the UI uses `tkinter`, which ships with the standard
-library — no third-party packages or license keys needed). Run:
+library — no third-party packages or license keys needed).
+
+On Windows, just double-click **Run Bloons Randomizer.bat**. Otherwise, run:
 
 ```
 python BloonsRandomizer.py
