@@ -240,6 +240,17 @@ def test_hero_generation_draws_from_data():
         assert b.hero().name in valid
 
 
+def test_single_type_config_yields_only_that_type():
+    # the effect the "Primary Only" preset configures: 4 primary, 0 of the rest
+    b.heroEnabled = False
+    b.numPrimary, b.numMilitary, b.numMagic, b.numSupport = 4, 0, 0, 0
+    primary_names = {t["name"] for t in b.towerPools["Primary"]}
+    for _ in range(100):
+        towers = b.createList()
+        assert len(towers) == 4
+        assert all(t.name in primary_names for t in towers)
+
+
 def test_generated_towers_come_from_data():
     b.heroEnabled = False
     b.numPrimary = b.numMilitary = b.numMagic = b.numSupport = 1

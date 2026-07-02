@@ -95,6 +95,15 @@ class RandomizerApp:
         ttk.Button(controls, text="Generate", command=self.on_generate).grid(
             row=6, column=0, columnspan=2, sticky="ew", pady=(10, 0))
 
+        # quick presets: 4 of one tower type, 0 of the others, then generate
+        presets = ttk.Frame(controls)
+        presets.grid(row=7, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        for label, category in (("Primary Only", "Primary"),
+                                ("Military Only", "Military"),
+                                ("Magic Only", "Magic")):
+            ttk.Button(presets, text=label,
+                       command=lambda c=category: self.select_only(c)).pack(fill="x", pady=1)
+
     def _count_row(self, frame, row, label, var):
         """Adds a label + numeric entry row for a tower-count setting."""
         ttk.Label(frame, text=label, width=14).grid(row=row, column=0, sticky="w", pady=2)
@@ -145,6 +154,16 @@ class RandomizerApp:
         waterBan = self.waterBanVar.get()
         heroEnabled = self.heroVar.get()
         return True
+
+    def select_only(self, category):
+        """Preset: set 4 of the given tower type and 0 of the others, then generate."""
+        typeVars = {"Primary": self.primaryVar, "Military": self.militaryVar, "Magic": self.magicVar}
+        self.primaryVar.set("0")
+        self.militaryVar.set("0")
+        self.magicVar.set("0")
+        self.supportVar.set("0")
+        typeVars[category].set("4")
+        self.on_generate()
 
     def on_generate(self):
         """Validates settings then regenerates the monkey list."""
