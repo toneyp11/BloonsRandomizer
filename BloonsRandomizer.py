@@ -5,7 +5,7 @@
 Used to randomize towers in Bloons Tower Defense 6 (BTD6)
 Intended to create challenge modes
 
-Tower and hero rosters (with their water flags) are loaded from data/towers.json,
+Tower and hero rosters are loaded from data/towers.json,
 which is regenerated from the wiki by tools/fetch_towers.py. Heroes are the
 entries with category "Hero".
 """
@@ -74,30 +74,34 @@ class RandomizerApp:
         self.build_output(main)
 
     def build_controls(self, parent):
-        """Builds the settings controls and the Generate button (left side)."""
+        """Builds the settings (top) and preset buttons (bottom) of the left column."""
         controls = ttk.Frame(parent)
-        controls.grid(row=0, column=0, sticky="nw", padx=(0, 10))
+        controls.grid(row=0, column=0, sticky="nsew", padx=(0, 10))
+
+        # settings and Generate at the top
+        settings = ttk.Frame(controls)
+        settings.pack(side="top", fill="x")
 
         # per-category tower counts
-        self._count_row(controls, 0, "Primary Towers", self.primaryVar)
-        self._count_row(controls, 1, "Military Towers", self.militaryVar)
-        self._count_row(controls, 2, "Magic Towers", self.magicVar)
-        self._count_row(controls, 3, "Support Towers", self.supportVar)
+        self._count_row(settings, 0, "Primary Towers", self.primaryVar)
+        self._count_row(settings, 1, "Military Towers", self.militaryVar)
+        self._count_row(settings, 2, "Magic Towers", self.magicVar)
+        self._count_row(settings, 3, "Support Towers", self.supportVar)
 
         # water tower config
-        ttk.Label(controls, text="Ban Water Towers").grid(row=4, column=0, sticky="w", pady=2)
-        ttk.Checkbutton(controls, variable=self.waterBanVar).grid(row=4, column=1, sticky="w", pady=2)
+        ttk.Label(settings, text="Ban Water Towers").grid(row=4, column=0, sticky="w", pady=2)
+        ttk.Checkbutton(settings, variable=self.waterBanVar).grid(row=4, column=1, sticky="w", pady=2)
 
         # hero config
-        ttk.Label(controls, text="Enable Hero").grid(row=5, column=0, sticky="w", pady=2)
-        ttk.Checkbutton(controls, variable=self.heroVar).grid(row=5, column=1, sticky="w", pady=2)
+        ttk.Label(settings, text="Enable Hero").grid(row=5, column=0, sticky="w", pady=2)
+        ttk.Checkbutton(settings, variable=self.heroVar).grid(row=5, column=1, sticky="w", pady=2)
 
-        ttk.Button(controls, text="Generate", command=self.on_generate).grid(
+        ttk.Button(settings, text="Generate", command=self.on_generate).grid(
             row=6, column=0, columnspan=2, sticky="ew", pady=(10, 0))
 
-        # quick presets, then generate
+        # quick presets pinned to the bottom of the window
         presets = ttk.Frame(controls)
-        presets.grid(row=7, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        presets.pack(side="bottom", fill="x")
         # one of each tower type
         ttk.Button(presets, text="Default (One of Each)",
                    command=self.select_default).pack(fill="x", pady=1)
