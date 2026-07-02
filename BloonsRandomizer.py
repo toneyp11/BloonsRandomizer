@@ -95,9 +95,13 @@ class RandomizerApp:
         ttk.Button(controls, text="Generate", command=self.on_generate).grid(
             row=6, column=0, columnspan=2, sticky="ew", pady=(10, 0))
 
-        # quick presets: 4 of one tower type, 0 of the others, then generate
+        # quick presets, then generate
         presets = ttk.Frame(controls)
         presets.grid(row=7, column=0, columnspan=2, sticky="ew", pady=(8, 0))
+        # one of each tower type
+        ttk.Button(presets, text="Default (One of Each)",
+                   command=self.select_default).pack(fill="x", pady=1)
+        # 4 of one tower type, 0 of the others
         for label, category in (("Primary Only", "Primary"),
                                 ("Military Only", "Military"),
                                 ("Magic Only", "Magic")):
@@ -154,6 +158,14 @@ class RandomizerApp:
         waterBan = self.waterBanVar.get()
         heroEnabled = self.heroVar.get()
         return True
+
+    def select_default(self):
+        """Preset: one of each tower type, then generate."""
+        self.primaryVar.set("1")
+        self.militaryVar.set("1")
+        self.magicVar.set("1")
+        self.supportVar.set("1")
+        self.on_generate()
 
     def select_only(self, category):
         """Preset: set 4 of the given tower type and 0 of the others, then generate."""
