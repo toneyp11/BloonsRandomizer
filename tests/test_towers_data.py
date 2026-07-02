@@ -46,10 +46,11 @@ def test_is_hero_is_bool(data):
         assert isinstance(entry["isHero"], bool), entry["name"]
 
 
-def test_water_and_camo_flags_are_bool(data):
+def test_water_and_flag_fields_are_bool(data):
     for entry in data["towers"]:
         assert isinstance(entry["water"], bool), entry["name"]
         assert isinstance(entry["innateCamo"], bool), entry["name"]
+        assert isinstance(entry["innateLead"], bool), entry["name"]
 
 
 def test_base_costs_positive(data):
@@ -92,19 +93,28 @@ def test_upgrade_fields(towers):
                 assert isinstance(upg["name"], str) and upg["name"], tower["name"]
                 assert isinstance(upg["cost"], int) and upg["cost"] >= 0, tower["name"]
                 assert isinstance(upg["camo"], bool), tower["name"]
+                assert isinstance(upg["lead"], bool), tower["name"]
+
+
+def _property_persists(towers, key):
+    """Once an upgrade grants a property, higher tiers on the same path keep it."""
+    for tower in towers:
+        for path in tower["paths"]:
+            seen = False
+            for upg in path["tiers"]:
+                if upg[key]:
+                    seen = True
+                elif seen:
+                    raise AssertionError(
+                        f"{tower['name']} path {path['path']} loses {key} after gaining it")
 
 
 def test_camo_persists_up_each_path(towers):
-    """Once an upgrade grants camo, higher tiers on the same path keep it."""
-    for tower in towers:
-        for path in tower["paths"]:
-            seen_camo = False
-            for upg in path["tiers"]:
-                if upg["camo"]:
-                    seen_camo = True
-                elif seen_camo:
-                    raise AssertionError(
-                        f"{tower['name']} path {path['path']} loses camo after gaining it")
+    _property_persists(towers, "camo")
+
+
+def test_lead_persists_up_each_path(towers):
+    _property_persists(towers, "lead")
 
 
 def test_known_camo_anchors(towers):
@@ -120,6 +130,21 @@ def test_known_camo_anchors(towers):
     bomb = by_name["Bomb Shooter"]
     assert bomb["innateCamo"] is False
     assert not any(u["camo"] for p in bomb["paths"] for u in p["tiers"])
+
+
+def test_known_lead_anchors(towers):
+    """Spot-check a few known lead-popping facts against the wiki."""
+    by_name = {t["name"]: t for t in towers}
+    # Bomb Shooter pops lead innately (explosive)
+    assert by_name["Bomb Shooter"]["innateLead"] is True
+    # Dart Monkey gains lead popping at Juggernaut (path 1, tier 4)
+    dart_p1 = by_name["Dart Monkey"]["paths"][0]["tiers"]
+    assert dart_p1[2]["lead"] is False   # tier 3
+    assert dart_p1[3]["lead"] is True    # tier 4 (Juggernaut)
+    # Banana Farm can never pop lead (no attack)
+    farm = by_name["Banana Farm"]
+    assert farm["innateLead"] is False
+    assert not any(u["lead"] for p in farm["paths"] for u in p["tiers"])
 
 
 def test_paragons_well_formed(towers):
@@ -168,3 +193,6 @@ def test_known_hero_anchors(heroes):
     assert by_name["Quincy"]["camoLevel"] == 5
     # Admiral Brickell requires water
     assert by_name["Admiral Brickell"]["water"] is True
+    # Striker Jones pops lead innately (explosive); Adora does not (energy)
+    assert by_name["Striker Jones"]["innateLead"] is True
+    assert by_name["Adora"]["innateLead"] is False

@@ -123,6 +123,37 @@ def test_impossible_camo_config_does_not_hang():
     assert b.createList() == []
 
 
+# --- lead popping guarantee ------------------------------------------------
+
+def test_tower_has_lead_uses_rolled_paths():
+    dart = next(t for t in b.towerPools["Primary"] if t["name"] == "Dart Monkey")
+    # Dart pops lead via Juggernaut (path 1 tier 4) or Crossbow Master (path 3 tier 5)
+    assert b.towerHasLead(dart, [2, 5, 0]) is False   # top at 2, no lead upgrade owned
+    assert b.towerHasLead(dart, [5, 2, 0]) is True     # top at 5 -> Juggernaut
+    assert b.towerHasLead(dart, [0, 2, 5]) is True     # bottom at 5 -> Crossbow Master
+
+
+def test_tower_has_lead_innate():
+    bomb = next(t for t in b.towerPools["Primary"] if t["name"] == "Bomb Shooter")
+    assert b.towerHasLead(bomb, [2, 5, 0]) is True     # innate, any spread
+
+
+def test_generated_sets_always_have_lead():
+    b.waterBan = False
+    b.heroEnabled = True
+    b.numPrimary = b.numMilitary = b.numMagic = b.numSupport = 1
+    for _ in range(300):
+        towers = b.createList()
+        assert any(t.lead for t in towers)
+
+
+def test_only_innate_lead_heroes_satisfy_lead():
+    innate = {"Gwendolin", "Striker Jones", "Captain Churchill", "Pat Fusty", "Admiral Brickell"}
+    for _ in range(300):
+        h = b.hero()
+        assert h.lead == (h.name in innate)
+
+
 # --- distinct fifth tiers --------------------------------------------------
 
 def _main_index(tower):
@@ -180,7 +211,8 @@ def test_check_conditions_rejects_water_when_banned():
 def test_check_conditions_allows_water_when_not_banned():
     b.waterBan = False
     water_tower = b.Tower("Monkey Sub", True, [5, 2, 0])
-    water_tower.camo = True  # satisfy the always-on camo guarantee in isolation
+    water_tower.camo = True  # satisfy the always-on camo + lead guarantees in isolation
+    water_tower.lead = True
     assert b.checkConditions([water_tower]) is True
 
 

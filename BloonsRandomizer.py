@@ -235,14 +235,31 @@ def genTowerFromCategory(category):
     selected = random.choice(towerPools[category])
     if selected["isHero"]:
         # heroes level up instead of taking upgrade paths, so no path spread.
-        # Only heroes that detect camo from level 1 count toward the guarantee.
+        # Only heroes that do it from level 1 count toward the guarantees.
         tower = Tower(selected["name"], selected["water"], None, isHero=True)
         tower.camo = selected["innateCamo"]
+        tower.lead = selected["innateLead"]
         return tower
     paths = genPaths()
     tower = Tower(selected["name"], selected["water"], paths)
     tower.camo = towerHasCamo(selected, paths)
+    tower.lead = towerHasLead(selected, paths)
     return tower
+
+
+def towerHasLead(towerData, paths):
+    """Returns whether a tower with the given rolled paths can pop Lead Bloons.
+
+    True if the tower pops lead innately, or any owned upgrade (the highest tier
+    bought on a path) grants lead popping.
+    """
+    if towerData["innateLead"]:
+        return True
+    for path in towerData["paths"]:
+        ownedTier = paths[path["path"] - 1]
+        if ownedTier >= 1 and path["tiers"][ownedTier - 1]["lead"]:
+            return True
+    return False
 
 
 def towerHasCamo(towerData, paths):
@@ -311,6 +328,7 @@ def enforceDistinctFifthTiers(monkeyList):
         for tower, main in zip(group, distinctMains(len(group))):
             tower.paths = pathsWithMain(main)
             tower.camo = towerHasCamo(towerByName[name], tower.paths)
+            tower.lead = towerHasLead(towerByName[name], tower.paths)
 
 
 def generateMonkeyList():
@@ -353,6 +371,10 @@ def checkConditions(towerList):
     # source that detects camo bloons
     if towerList and not any(tower.camo for tower in towerList):
         return False
+    # Lead popping guarantee: a non-empty set must include at least one
+    # source that can pop lead bloons
+    if towerList and not any(tower.lead for tower in towerList):
+        return False
     return True
 
 
@@ -381,6 +403,7 @@ class Tower:
         self.paths = paths
         self.isHero = isHero
         self.camo = False  # whether this rolled tower/hero detects camo bloons
+        self.lead = False  # whether this rolled tower/hero can pop lead bloons
 
     def __str__(self):
         if self.isHero:
@@ -389,6 +412,8 @@ class Tower:
             label = self.name + " (" + str(self.paths[0]) + ", " + str(self.paths[1]) + ", " + str(self.paths[2]) + ")"
         if self.camo:
             label += " [Camo]"
+        if self.lead:
+            label += " [Lead]"
         return label
 
 

@@ -13,4 +13,5 @@ python BloonsRandomizer.py
 ```
 
 Every generated set is guaranteed to include at least one tower or hero that
-can detect Camo Bloons; those picks are marked `[Camo]` in the results.
+can detect Camo Bloons and at least one that can pop Lead Bloons; those picks
+are marked `[Camo]` and `[Lead]` in the results.

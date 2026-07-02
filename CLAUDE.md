@@ -59,12 +59,14 @@ Three layers:
    - **Distinct fifth tiers** (`enforceDistinctFifthTiers`): duplicate copies
      of the same tower get different main (tier-5) paths; only 3 paths exist,
      so a 4th+ copy necessarily repeats.
-   - **Camo guarantee** (`checkConditions` + the retry loop in `createList`,
-     capped by `maxGenerationAttempts`): every non-empty set must contain a
-     camo-detecting source. `towerHasCamo()` decides per rolled paths; only
-     innate-camo heroes count. Water ban is also enforced here.
-   `Tower` is the data class (`camo` is computed at roll time). These are the
-   easily testable parts — add tests here when you change behavior.
+   - **Camo & lead guarantees** (`checkConditions` + the retry loop in
+     `createList`, capped by `maxGenerationAttempts`): every non-empty set must
+     contain both a camo-detecting source and a lead-popping source.
+     `towerHasCamo()` / `towerHasLead()` decide per rolled paths; only
+     innate-camo / innate-lead heroes count. Water ban is also enforced here.
+   `Tower` is the data class (`camo` and `lead` are computed at roll time, and
+   shown as `[Camo]`/`[Lead]` tags). These are the easily testable parts — add
+   tests here when you change behavior.
 3. **UI** — `RandomizerApp` (tkinter/`ttk`): a single screen with the settings
    controls and Generate button on the left (`build_controls`) and one results
    listbox on the right (`build_output`). `read_settings()` validates the
@@ -100,9 +102,14 @@ array holds both towers and heroes, distinguished by `isHero` (bool) /
 (Primary/Military/Magic/Support/Hero), `isHero`, `water` (bool), `innateCamo`
 (bool), `baseCost`.
 - **Towers** additionally have `paragon` (`{name, cost}` or null) and `paths[]`
-  (3 paths x 5 `tiers[]`, each `{tier, name, cost, camo}`).
+  (3 paths x 5 `tiers[]`, each `{tier, name, cost, camo, lead}`).
 - **Heroes** have empty `paths`, null `paragon`, and a `camoLevel` (the level
   at which permanent camo detection is gained, or null).
+- **`innateLead`** (all entries) and per-upgrade **`lead`** mark lead-popping,
+  the same way `innateCamo`/`camo` mark camo detection. Sourced from the wiki
+  "Lead-Popping Power" page (flagged outdated, so marked conservatively via the
+  damage-type rules); grants are configured by name in `tools/fetch_towers.py`
+  (`LEAD_GRANT` / `INNATE_LEAD` / `HERO_LEAD`).
 
 - **Costs** are Medium difficulty, excluding Monkey Knowledge/discounts.
 - **`camo`** is True when the tower has permanent camo detection once that

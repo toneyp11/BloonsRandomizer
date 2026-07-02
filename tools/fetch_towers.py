@@ -13,6 +13,8 @@ Only the standard library is used, keeping the project dependency-free.
 """
 import json
 import os
+import time
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -81,6 +83,40 @@ HERO_CAMO_LEVEL = {
     "Silas": 1,
 }
 
+# Lead popping, from the wiki "Lead-Popping Power" page (BTD6 section). Lead is
+# immune to Sharp/Cold/Energy/Shatter damage, so only attacks of another type
+# (explosive, fire, plasma, acid, normal, ...) pop it. Marked conservatively:
+# only reliable PASSIVE lead popping, so a set is never wrongly reported as
+# lead-capable. Ability-only, support/buff-only, DDT-only, and undead-only
+# sources are excluded (as with camo conditionals), and entries that the
+# (outdated) wiki list gets wrong per the damage-type rules are corrected
+# (e.g. Glue Gunner needs Corrosive Glue to damage Lead; it is not innate).
+# Each entry lists upgrade(s) that grant permanent lead popping; that upgrade
+# and higher tiers on its path get lead=True.
+LEAD_GRANT = {
+    "Dart Monkey": ["Juggernaut", "Crossbow Master"],
+    "Boomerang Monkey": ["Red Hot Rangs"],
+    "Tack Shooter": ["Hot Shots", "Super Maelstrom"],
+    "Ice Monkey": ["Cold Snap"],
+    "Glue Gunner": ["Corrosive Glue"],
+    "Sniper Monkey": ["Full Metal Jacket"],
+    "Monkey Sub": ["Heat-tipped Darts"],
+    "Monkey Buccaneer": ["Hot Shot"],
+    "Monkey Ace": ["Exploding Pineapple", "Spectre", "Sky Shredder"],
+    "Dartling Gunner": ["Hydra Rocket Pods", "Plasma Accelerator"],
+    "Wizard Monkey": ["Fireball", "Arcane Spike"],
+    "Super Monkey": ["Plasma Blasts"],
+    "Ninja Monkey": ["Flash Bomb"],
+    "Druid": ["Hard Thorns"],
+    "Spike Factory": ["White Hot Spikes"],
+    "Engineer Monkey": ["Sentry Expert"],
+}
+# Towers that pop lead with no upgrade at all (explosive / acid attacks).
+INNATE_LEAD = {"Bomb Shooter", "Mortar Monkey", "Alchemist"}
+# Heroes that pop lead from level 1 (explosive/fire/normal attacks). Heroes whose
+# attacks are Sharp/Energy/Cold (e.g. Obyn, Adora, Sauda, Silas) are excluded.
+HERO_LEAD = {"Gwendolin", "Striker Jones", "Captain Churchill", "Pat Fusty", "Admiral Brickell"}
+
 
 def apply_camo(name, paths):
     """Set the camo flag on every upgrade tier and return the tower innateCamo flag.
@@ -109,8 +145,41 @@ def apply_camo(name, paths):
     return innate
 
 
-def cargo(tables, fields, order_by, where=None):
-    """Run a Cargo query and return the list of row dicts."""
+def apply_lead(name, paths):
+    """Set the lead flag on every upgrade tier and return the tower innateLead flag.
+
+    lead=True means the tower pops Lead Bloons once that upgrade is owned. A
+    tower can gain lead popping on more than one path, so several grant points
+    are supported. Raises if a configured granting upgrade name is not present.
+    """
+    innate = name in INNATE_LEAD
+    grant_positions = []  # (path, tier) for each granting upgrade
+    for grant_name in LEAD_GRANT.get(name, []):
+        pos = None
+        for path in paths:
+            for upg in path["tiers"]:
+                if upg["name"] == grant_name:
+                    pos = (path["path"], upg["tier"])
+        if pos is None:
+            raise RuntimeError(f"{name}: lead-granting upgrade '{grant_name}' not found")
+        grant_positions.append(pos)
+
+    for path in paths:
+        for upg in path["tiers"]:
+            lead = innate
+            for gp, gt in grant_positions:
+                if path["path"] == gp and upg["tier"] >= gt:
+                    lead = True
+            upg["lead"] = lead
+    return innate
+
+
+def cargo(tables, fields, order_by, where=None, attempts=4):
+    """Run a Cargo query and return the list of row dicts.
+
+    The wiki API occasionally throws transient MWExceptions, so retry a few
+    times with a short backoff before giving up.
+    """
     params = {
         "action": "cargoquery", "format": "json", "limit": "500",
         "tables": tables, "fields": fields, "order_by": order_by,
@@ -119,11 +188,19 @@ def cargo(tables, fields, order_by, where=None):
         params["where"] = where
     url = API + "?" + urllib.parse.urlencode(params)
     req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0 (BloonsRandomizer data fetch)"})
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        payload = json.load(resp)
-    if "error" in payload:
-        raise RuntimeError(payload["error"].get("info", "cargo query failed"))
-    return [row["title"] for row in payload.get("cargoquery", [])]
+    last_error = None
+    for attempt in range(attempts):
+        try:
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                payload = json.load(resp)
+            if "error" not in payload:
+                return [row["title"] for row in payload.get("cargoquery", [])]
+            last_error = payload["error"].get("info", "cargo query failed")
+        except (urllib.error.URLError, ValueError) as exc:
+            last_error = str(exc)
+        if attempt < attempts - 1:
+            time.sleep(2 * (attempt + 1))
+    raise RuntimeError(f"cargo query on '{tables}' failed after {attempts} tries: {last_error}")
 
 
 def build():
@@ -159,12 +236,14 @@ def build():
                         problems.append(f"{name}: missing path {p} tier {tier}")
                         continue
                     tiers.append({"tier": tier, "name": cell["name"],
-                                  "cost": cell["cost"], "camo": None})
+                                  "cost": cell["cost"], "camo": None, "lead": None})
                 paths.append({"path": p, "tiers": tiers})
-            innate = apply_camo(name, paths)
+            innate_camo = apply_camo(name, paths)
+            innate_lead = apply_lead(name, paths)
             towers.append({
                 "name": name, "category": category, "isHero": False,
-                "water": name in WATER, "innateCamo": innate,
+                "water": name in WATER, "innateCamo": innate_camo,
+                "innateLead": innate_lead,
                 "baseCost": base_cost.get(name), "paragon": paragon.get(name),
                 "paths": paths,
             })
@@ -179,6 +258,7 @@ def build():
         towers.append({
             "name": name, "category": "Hero", "isHero": True,
             "water": name in WATER_HEROES, "innateCamo": camo_level == 1,
+            "innateLead": name in HERO_LEAD,
             "camoLevel": camo_level,
             "baseCost": int(r["cost"]) if r.get("cost") not in (None, "") else None,
             "paragon": None,
@@ -196,6 +276,7 @@ def build():
             "source": "Blooncyclopedia (bloonswiki.com) Cargo tables btd6_towers / btd6_upgrades / btd6_paragons / btd6_heroes.",
             "heroNote": "Entries with isHero=True are heroes (category 'Hero'). Heroes level up rather than take upgrade paths, so 'paths' is empty and 'paragon' is null. 'camoLevel' is the level at which the hero gains permanent camo detection (null if none/conditional); 'innateCamo' is True when that level is 1.",
             "camoNote": "Per-upgrade 'camo' is True when the tower has permanent camo detection once that upgrade is owned (granting upgrade and higher tiers on its path). 'innateCamo' marks towers that detect camo with no upgrade (Ninja Monkey). Source: wiki 'Camo detection' page, BTD6 section (v53.2). Excludes conditional/ability-only, paragon-only, and decamo-only sources.",
+            "leadNote": "Per-upgrade 'lead' is True when the tower can pop Lead Bloons once that upgrade is owned; 'innateLead' marks towers/heroes that pop lead with no upgrade. Source: wiki 'Lead-Popping Power' page, BTD6 section (flagged outdated, so marked conservatively via the damage-type rules). Excludes ability-only, support/buff-only, DDT-only, and undead-only sources.",
         },
         "categories": list(CATEGORY) + ["Hero"],
         "towers": towers,
