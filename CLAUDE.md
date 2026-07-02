@@ -36,8 +36,8 @@ headlessly (no blocking `mainloop`):
 ```python
 import tkinter as tk, BloonsRandomizer as b
 root = tk.Tk(); app = b.RandomizerApp(root); root.update()
-app.playersVar.set('2'); app.on_generate(); root.update()
-print(list(app.listboxes[0].get(0, tk.END)))
+app.on_generate(); root.update()
+print(list(app.listbox.get(0, tk.END)))
 root.destroy()
 ```
 
@@ -47,9 +47,10 @@ Prefer this + `pytest` over launching the window. A quick real launch
 ## Architecture (all in `BloonsRandomizer.py`)
 
 Three layers:
-1. **Config** — module-level globals (`players`, `waterBan`, `heroEnabled`,
+1. **Config** — module-level globals (`waterBan`, `heroEnabled`,
    `numPrimary`/`numMilitary`/`numMagic`/`numSupport`, `mainUpgrades`,
-   `crossUpgrades`). The UI writes these; the logic reads them.
+   `crossUpgrades`). The UI writes these; the logic reads them. The app is
+   single-player.
 2. **Pure logic** — `hero()`/`primary()`/`military()`/`magic()`/`support()`
    draw from the loaded pools via `genTowerFromCategory()`; `genPaths()` rolls
    the upgrade spread (one main path at `mainUpgrades`, one cross at
@@ -64,9 +65,10 @@ Three layers:
      innate-camo heroes count. Water ban is also enforced here.
    `Tower` is the data class (`camo` is computed at roll time). These are the
    easily testable parts — add tests here when you change behavior.
-3. **UI** — `RandomizerApp` (tkinter/`ttk`): a Settings tab and a Monkey
-   Results tab with one listbox per player. `read_settings()` validates the
-   inputs into the config globals; `on_generate()` repopulates the lists.
+3. **UI** — `RandomizerApp` (tkinter/`ttk`): a single screen with the settings
+   controls and Generate button on the left (`build_controls`) and one results
+   listbox on the right (`build_output`). `read_settings()` validates the
+   inputs into the config globals; `on_generate()` repopulates the list.
 
 Path model: `genPaths()` returns `[a, b, c]` with exactly one entry set to
 `mainUpgrades` (5), one to `crossUpgrades` (2), and one left 0 — the BTD6

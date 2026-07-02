@@ -8,7 +8,6 @@ import BloonsRandomizer as b
 @pytest.fixture(autouse=True)
 def default_config():
     """Reset the module-level config globals to known values before each test."""
-    b.players = 1
     b.waterBan = False
     b.heroEnabled = True
     b.numPrimary = 1

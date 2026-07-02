@@ -16,7 +16,6 @@ import tkinter as tk
 from tkinter import ttk, messagebox
 
 # global variables
-players = 1
 waterBan = False
 heroEnabled = True
 mainUpgrades = 5
@@ -27,7 +26,7 @@ numMagic = 1
 numSupport = 1
 
 # constants
-defaultMessage = "Player Not Active"
+defaultMessage = "Press Generate"
 maxMonkeys = 5
 # safety cap so an impossible config (e.g. no towers and no hero) can't loop forever
 maxGenerationAttempts = 1000
@@ -58,7 +57,6 @@ class RandomizerApp:
         root.title("Bloons Randomizer")
 
         # tk-backed widget state
-        self.playersVar = tk.StringVar(value=str(players))
         self.primaryVar = tk.StringVar(value=str(numPrimary))
         self.militaryVar = tk.StringVar(value=str(numMilitary))
         self.magicVar = tk.StringVar(value=str(numMagic))
@@ -66,67 +64,55 @@ class RandomizerApp:
         self.waterBanVar = tk.BooleanVar(value=waterBan)
         self.heroVar = tk.BooleanVar(value=heroEnabled)
 
-        notebook = ttk.Notebook(root)
-        notebook.pack(fill="both", expand=True, padx=5, pady=5)
+        # single screen: settings/controls on the left, the monkey list on the right
+        main = ttk.Frame(root, padding=10)
+        main.pack(fill="both", expand=True)
+        main.columnconfigure(1, weight=1)
+        main.rowconfigure(0, weight=1)
 
-        notebook.add(self.build_settings_tab(notebook), text="Settings")
-        notebook.add(self.build_results_tab(notebook), text="Monkey Results")
+        self.build_controls(main)
+        self.build_output(main)
 
-    def build_settings_tab(self, parent):
-        """Builds the Settings tab where the run is configured."""
-        frame = ttk.Frame(parent, padding=10)
-
-        # number of players
-        ttk.Label(frame, text="Number of Players").grid(row=0, column=0, sticky="w", pady=2)
-        ttk.Combobox(frame, textvariable=self.playersVar, values=["1", "2", "3", "4"],
-                     state="readonly", width=4).grid(row=0, column=1, sticky="w", pady=2)
+    def build_controls(self, parent):
+        """Builds the settings controls and the Generate button (left side)."""
+        controls = ttk.Frame(parent)
+        controls.grid(row=0, column=0, sticky="nw", padx=(0, 10))
 
         # per-category tower counts
-        self._count_row(frame, 1, "Primary Towers", self.primaryVar)
-        self._count_row(frame, 2, "Military Towers", self.militaryVar)
-        self._count_row(frame, 3, "Magic Towers", self.magicVar)
-        self._count_row(frame, 4, "Support Towers", self.supportVar)
+        self._count_row(controls, 0, "Primary Towers", self.primaryVar)
+        self._count_row(controls, 1, "Military Towers", self.militaryVar)
+        self._count_row(controls, 2, "Magic Towers", self.magicVar)
+        self._count_row(controls, 3, "Support Towers", self.supportVar)
 
         # water tower config
-        ttk.Label(frame, text="Ban Water Towers").grid(row=5, column=0, sticky="w", pady=2)
-        ttk.Checkbutton(frame, variable=self.waterBanVar).grid(row=5, column=1, sticky="w", pady=2)
+        ttk.Label(controls, text="Ban Water Towers").grid(row=4, column=0, sticky="w", pady=2)
+        ttk.Checkbutton(controls, variable=self.waterBanVar).grid(row=4, column=1, sticky="w", pady=2)
 
         # hero config
-        ttk.Label(frame, text="Enable Hero").grid(row=6, column=0, sticky="w", pady=2)
-        ttk.Checkbutton(frame, variable=self.heroVar).grid(row=6, column=1, sticky="w", pady=2)
+        ttk.Label(controls, text="Enable Hero").grid(row=5, column=0, sticky="w", pady=2)
+        ttk.Checkbutton(controls, variable=self.heroVar).grid(row=5, column=1, sticky="w", pady=2)
 
-        return frame
+        ttk.Button(controls, text="Generate", command=self.on_generate).grid(
+            row=6, column=0, columnspan=2, sticky="ew", pady=(10, 0))
 
     def _count_row(self, frame, row, label, var):
         """Adds a label + numeric entry row for a tower-count setting."""
         ttk.Label(frame, text=label, width=14).grid(row=row, column=0, sticky="w", pady=2)
         ttk.Entry(frame, textvariable=var, width=6).grid(row=row, column=1, sticky="w", pady=2)
 
-    def build_results_tab(self, parent):
-        """Builds the Monkey Results tab with the Generate button and per-player lists."""
-        frame = ttk.Frame(parent, padding=10)
+    def build_output(self, parent):
+        """Builds the monkey results list (right side)."""
+        output = ttk.Frame(parent)
+        output.grid(row=0, column=1, sticky="nsew")
+        output.rowconfigure(1, weight=1)
+        output.columnconfigure(0, weight=1)
 
-        ttk.Button(frame, text="Generate", command=self.on_generate).grid(
-            row=0, column=0, columnspan=4, sticky="w", pady=(0, 5))
-
-        # let the listbox row/columns grow when the window is resized
-        frame.rowconfigure(1, weight=1)
-
-        # one listbox per possible player. A monospace font keeps the width in
-        # characters exact; 35 fits the longest possible entry, e.g.
-        # "Monkey Buccaneer (2, 0, 5) [Camo]" (33 chars).
-        self.listboxes = []
-        for i in range(4):
-            frame.columnconfigure(i, weight=1)
-            column = ttk.Frame(frame)
-            column.grid(row=1, column=i, padx=5, sticky="nsew")
-            ttk.Label(column, text="Player " + str(i + 1)).pack(anchor="w")
-            listbox = tk.Listbox(column, width=35, height=25, font="TkFixedFont")
-            listbox.pack(fill="both", expand=True)
-            listbox.insert(tk.END, defaultMessage)
-            self.listboxes.append(listbox)
-
-        return frame
+        ttk.Label(output, text="Monkeys").grid(row=0, column=0, sticky="w")
+        # a monospace font keeps the width in characters exact; 35 fits the
+        # longest possible entry, e.g. "Monkey Buccaneer (2, 0, 5) [Camo]" (33).
+        self.listbox = tk.Listbox(output, width=35, height=25, font="TkFixedFont")
+        self.listbox.grid(row=1, column=0, sticky="nsew")
+        self.listbox.insert(tk.END, defaultMessage)
 
     def read_settings(self):
         """Reads and validates the settings widgets into the module globals.
@@ -134,7 +120,7 @@ class RandomizerApp:
         Returns True on success, or False (after showing an error popup) if a
         tower count is not an integer in the range 0..maxMonkeys.
         """
-        global players, waterBan, heroEnabled, numPrimary, numMilitary, numMagic, numSupport
+        global waterBan, heroEnabled, numPrimary, numMilitary, numMagic, numSupport
 
         counts = {
             "Primary": self.primaryVar,
@@ -152,7 +138,6 @@ class RandomizerApp:
                 return False
             parsed[label] = value
 
-        players = int(self.playersVar.get())
         numPrimary = parsed["Primary"]
         numMilitary = parsed["Military"]
         numMagic = parsed["Magic"]
@@ -162,22 +147,16 @@ class RandomizerApp:
         return True
 
     def on_generate(self):
-        """Validates settings then repopulates each player's tower list."""
+        """Validates settings then regenerates the monkey list."""
         if not self.read_settings():
             return
+        self._set_list([str(tower) for tower in createList()])
 
-        for i in range(int(players)):
-            self._set_list(self.listboxes[i], [str(tower) for tower in createList()])
-
-        # clear out the inactive players' listboxes
-        for i in range(int(players), 4):
-            self._set_list(self.listboxes[i], [defaultMessage])
-
-    def _set_list(self, listbox, items):
-        """Replaces the contents of a listbox with the given items."""
-        listbox.delete(0, tk.END)
+    def _set_list(self, items):
+        """Replaces the contents of the results listbox with the given items."""
+        self.listbox.delete(0, tk.END)
         for item in items:
-            listbox.insert(tk.END, item)
+            self.listbox.insert(tk.END, item)
 
 
 def parseTowerCount(userInput):
